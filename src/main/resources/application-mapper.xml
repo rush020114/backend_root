@@ -4,5 +4,13 @@
 <!-- 해당 파일에 모든 쿼리문을 작성 -->
 <!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
 <mapper namespace="com.green.backend_root.application.mapper.ApplicationMapper">
-
+    <resultMap id="application" type="com.green.backend_root.application.dto.ApplicationDTO">
+        <id     column="APPL_NUM"       property="applNum" />
+        <result column="APPL_ROLE"      property="applRole" />
+        <result column="BUSINESS_TEL"   property="businessTel" />
+        <result column="APPL_ADDR"      property="applAddr" />
+        <result column="ADDR_DETAIL"    property="addrDetail" />
+        <result column="CONTENT"        property="content" />
+        <result column="USER_ID"        property="userId" />
+    </resultMap>
 </mapper>

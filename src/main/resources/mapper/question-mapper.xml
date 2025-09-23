@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.backend_root.question.mapper.QuestionMapper">
+	<resultMap id="question" type="com.green.backend_root.question.dto.QuestionDTO">
+        <id     column="QST_ID"      property="qstId" />
+        <result column="QST_TITLE"   property="qstTitle" />
+        <result column="QST_CONTENT" property="qstContent" />
+        <result column="USER_ID"     property="userId" />
+        <result column="QST_DATE"    property="qstDate" />
+        <result column="QST_STATUS"  property="qstStatus" />
+    </resultMap>
+
+    <resultMap id="questionImg" type="com.green.backend_root.question.dto.QuestionImgDTO">
+        <id     column="IMG_NUM"            property="imgNum" />
+        <result column="ORIGIN_IMG_NAME"    property="originImgName" />
+        <result column="ATTACHED_IMG_NAME"  property="attachedImgName" />
+        <result column="QST_ID"             property="qstId" />
+    </resultMap>
+
+    <!-- 문의 등록 -->
+    <insert id="regQst">
+        INSERT INTO QUESTION (
+            QST_TITLE
+            , QST_CONTENT
+            , USER_ID
+        ) VALUES (
+            #{qstTitle}
+            , #{qstContent}
+            , #{userId}
+        )
+    </insert>
+
+    <!-- 문의 등록 때 문의 번호 조회 -->
+    <select id="getQstId" resultType="String">
+        SELECT COUNT(USER_ID) + 1
+        FROM QUESTION
+    </select>
+
+    <!-- 문의 이미지 등록 -->
+    <insert id="regQstImgs">
+        INSERT INTO QUESTION_IMG (
+            ORIGIN_IMG_NAME
+            , ATTACHED_IMG_NAME
+            , QST_ID
+        ) VALUES
+    <foreach collection="questionImgDTOList" item="questionImg" separator=",">
+        (
+            #{questionImg.originImgName}
+            , #{questionImg.attachedImgName}
+            , #{questionImg.qstId}
+        )
+    </foreach>
+    </insert>
+</mapper>

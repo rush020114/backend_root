@@ -3,10 +3,7 @@ package com.green.backend_root.User.controller;
 import com.green.backend_root.User.dto.UserDTO;
 import com.green.backend_root.User.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,5 +21,11 @@ public class UserController {
   @PostMapping("/login")
   public UserDTO selectUser(UserDTO userDTO){
     return userService.selectUser(userDTO);
+  }
+
+  //회원 아이디 중복 확인 조회 API
+  @GetMapping("/{userId}")
+  public String checkUserId(@PathVariable("userId") String userId){
+    return userService.checkUserId(userId);
   }
 }

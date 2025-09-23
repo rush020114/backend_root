@@ -19,4 +19,9 @@ public class UserService {
   public UserDTO selectUser(UserDTO userDTO){
     return userMapper.selectUser(userDTO);
   }
+
+  //회원 아이디 중복 확인 조회 기능 구현 메서드
+  public String checkUserId(String userId){
+    return userMapper.checkUserId(userId);
+  }
 }

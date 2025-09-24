@@ -25,7 +25,7 @@ public interface QuestionMapper {
   QuestionDTO getQstDetail(QuestionDTO questionDTO);
 
   // 문의 목록 조회
-  List<QuestionDTO>  getQstList();
+  List<QuestionDTO>  getQstList(QuestionDTO questionDTO);
 
   // 답변 등록 시 답변 상태 바꾸기
   void updateQstStatus(AnswerDTO answerDTO);

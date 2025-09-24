@@ -22,4 +22,9 @@ public class AnswerService {
     // 답변 등록 시 답변 상태 바꾸기
     questionMapper.updateQstStatus(answerDTO);
   }
+
+  // 답변 조회
+  public AnswerDTO getAns(int qstId){
+    return answerMapper.getAns(qstId);
+  }
 }

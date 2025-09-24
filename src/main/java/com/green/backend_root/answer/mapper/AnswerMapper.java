@@ -7,4 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface AnswerMapper {
   // 답변 등록
   void regAns(AnswerDTO answerDTO);
+
+  // 답변 조회
+  AnswerDTO getAns(int qstId);
 }

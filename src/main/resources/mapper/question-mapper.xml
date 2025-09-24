@@ -11,7 +11,6 @@
         <result column="USER_ID"     property="userId" />
         <result column="QST_DATE"    property="qstDate" />
         <result column="QST_STATUS"  property="qstStatus" />
-        <result column="QST_STATUS_CNT" property="qstStatusCnt" />
         <collection property="questionImgDTOList" resultMap="questionImg" />
     </resultMap>
 

@@ -33,4 +33,16 @@ public class QuestionController {
     // 문의 등록
     questionService.regQst(questionImgDTOList, questionDTO);
   }
+
+  // 문의 상세 조회 api
+  @GetMapping("/detail")
+  public QuestionDTO getQstDetail(QuestionDTO questionDTO){
+    return questionService.getQstDetail(questionDTO);
+  }
+
+  // 문의 목록 조회 api
+  @GetMapping("")
+  public List<QuestionDTO> getQstList(){
+    return questionService.getQstList();
+  }
 }

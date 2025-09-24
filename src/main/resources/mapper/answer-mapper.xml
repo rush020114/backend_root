@@ -11,4 +11,17 @@
         <result column="USER_ID" property="userId" />
         <result column="ANS_DATE" property="ansDate" />
     </resultMap>
+
+    <!-- 답변 등록 -->
+    <insert id="regAns">
+        INSERT INTO ANSWER (
+            ANS_CONTENT
+            , QST_ID
+            , USER_ID
+        ) VALUES (
+            #{ansContent}
+            , #{qstId}
+            , #{userId}
+        )
+    </insert>
 </mapper>

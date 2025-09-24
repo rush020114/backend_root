@@ -29,4 +29,18 @@ public class QuestionService {
       questionMapper.regQstImgs(questionImgDTOList);
     }
   }
+
+  // 문의 상세 조회 (답변 페이지에도 이용)
+  public QuestionDTO getQstDetail(QuestionDTO questionDTO){
+    // 문의 상세 조회 시 이미지 등록 여부를 판단
+    questionDTO.setImgCnt(questionMapper.getImgCnt(questionDTO));
+    // 문의 상세 조회
+    return questionMapper.getQstDetail(questionDTO);
+  }
+
+  // 문의 목록 조회
+  public List<QuestionDTO> getQstList(){
+    return questionMapper.getQstList();
+  }
+
 }

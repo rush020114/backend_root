@@ -39,8 +39,13 @@ public class QuestionService {
   }
 
   // 문의 목록 조회
-  public List<QuestionDTO> getQstList(){
-    return questionMapper.getQstList();
+  public List<QuestionDTO> getQstList(QuestionDTO questionDTO){
+    return questionMapper.getQstList(questionDTO);
+  }
+
+  // 답변 진행 중 개수
+  public int getQstStatusCnt(){
+    return questionMapper.getQstStatusCnt();
   }
 
 }

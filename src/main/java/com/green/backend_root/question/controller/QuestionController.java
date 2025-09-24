@@ -42,7 +42,13 @@ public class QuestionController {
 
   // 문의 목록 조회 api
   @GetMapping("")
-  public List<QuestionDTO> getQstList(){
-    return questionService.getQstList();
+  public List<QuestionDTO> getQstList(QuestionDTO questionDTO){
+    return questionService.getQstList(questionDTO);
+  }
+
+  // 답변 진행중 개수 조회 api
+  @GetMapping("/status-cnt")
+  public int getQstStatusCnt(){
+    return questionService.getQstStatusCnt();
   }
 }

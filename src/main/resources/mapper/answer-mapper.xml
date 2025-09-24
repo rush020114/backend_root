@@ -24,4 +24,15 @@
             , #{userId}
         )
     </insert>
+
+    <!-- 답변 조회 -->
+    <select id="getAns" resultMap="answer">
+        SELECT ANS_ID
+            , ANS_CONTENT
+            , QST_ID
+            , USER_ID
+            , ANS_DATE
+        FROM ANSWER
+        WHERE QST_ID = #{qstId}
+    </select>
 </mapper>

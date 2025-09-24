@@ -92,6 +92,9 @@
             , QST_DATE
             , QST_STATUS
         FROM QUESTION
+    <if test='!memRole.equals("ADMIN")'>
+        WHERE USER_ID = #{userId}
+    </if>
         ORDER BY QST_DATE DESC
     </select>
 

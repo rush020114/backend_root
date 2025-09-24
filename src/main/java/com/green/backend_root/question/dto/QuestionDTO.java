@@ -18,6 +18,10 @@ public class QuestionDTO {
   private LocalDateTime qstDate;
   private String qstStatus;
   private List<QuestionImgDTO> questionImgDTOList;
+  // 문의 상세 조회 시 이미지 등록 여부를 판단
+  private int imgCnt;
+  // 답변 상태를 개수를 받을 변수
+  private int qstStatusCnt;
 
   public QuestionDTO(){
   }

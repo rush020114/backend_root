@@ -6,11 +6,14 @@
 <mapper namespace="com.green.backend_root.application.mapper.ApplicationMapper">
     <resultMap id="application" type="com.green.backend_root.application.dto.ApplicationDTO">
         <id     column="APPL_NUM"       property="applNum" />
+        <result column="FARM_NAME"      property="farmName" />
         <result column="APPL_ROLE"      property="applRole" />
         <result column="BUSINESS_TEL"   property="businessTel" />
         <result column="APPL_ADDR"      property="applAddr" />
         <result column="ADDR_DETAIL"    property="addrDetail" />
-        <result column="CONTENT"        property="content" />
+        <result column="APPL_CONTENT"   property="applContent" />
+        <result column="REG_DATE"   property="regDate" />
+        <result column="APPR_DATE"   property="apprDate" />
         <result column="USER_ID"        property="userId" />
     </resultMap>
 </mapper>

@@ -10,4 +10,7 @@ public interface AnswerMapper {
 
   // 답변 조회
   AnswerDTO getAns(int qstId);
+
+  // 답변 수정
+  void updateAns(AnswerDTO answerDTO);
 }

@@ -25,4 +25,10 @@ public class AnswerController {
   public AnswerDTO getAns(@PathVariable("qstId") int qstId){
     return answerService.getAns(qstId);
   }
+
+  // 답변 수정 api
+  @PutMapping("")
+  public void updateAns(@RequestBody AnswerDTO answerDTO){
+    answerService.updateAns(answerDTO);
+  }
 }

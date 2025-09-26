@@ -48,4 +48,18 @@ public class QuestionService {
     return questionMapper.getQstStatusCnt();
   }
 
+  // 문의 수정
+  public void updateQst(QuestionDTO questionDTO){
+    questionMapper.updateQst(questionDTO);
+  }
+
+  // 문의 삭제
+  public void delQst(int qstId){
+    questionMapper.delQst(qstId);
+  }
+
+  // 문의 이미지 조회
+  public List<QuestionImgDTO> getQstImgList(int qstId){
+    return questionMapper.getQstImgList(qstId);
+  }
 }

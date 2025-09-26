@@ -32,4 +32,13 @@ public interface QuestionMapper {
 
   // 답변 진행 중 개수
   int getQstStatusCnt();
+
+  // 문의 수정
+  void updateQst(QuestionDTO questionDTO);
+
+  // 문의 삭제
+  void delQst(int qstId);
+
+  // 문의 이미지 조회
+  List<QuestionImgDTO> getQstImgList(int qstId);
 }

@@ -6,6 +6,7 @@ import com.green.backend_root.question.service.QuestionService;
 import com.green.backend_root.util.QuestionFileUploadUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -50,5 +51,26 @@ public class QuestionController {
   @GetMapping("/status-cnt")
   public int getQstStatusCnt(){
     return questionService.getQstStatusCnt();
+  }
+
+  // 문의 수정 api
+  @PutMapping("/{qstId}")
+  public void updateQst(@RequestBody QuestionDTO questionDTO, @PathVariable("qstId") int qstId){
+    questionDTO.setQstId(qstId);
+    questionService.updateQst(questionDTO);
+  }
+
+  // 문의 삭제 api
+  @DeleteMapping("/{qstId}")
+  @Transactional(rollbackFor = Exception.class)
+  public void delQst(@PathVariable("qstId") int qstId){
+    // 문의 삭제 시 이미지도 삭제
+    List<QuestionImgDTO> questionImgDTOList = questionService.getQstImgList(qstId);
+
+    // 문의 삭제
+    questionService.delQst(qstId);
+
+    // 이미지 삭제
+    QuestionFileUploadUtil.QuestionFileDelete(questionImgDTOList);
   }
 }

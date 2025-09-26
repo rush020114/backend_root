@@ -39,4 +39,18 @@ public class QuestionFileUploadUtil {
     }
     return questionImgDTOList;
   }
+
+  // 이미지 삭제 메서드
+  public static void QuestionFileDelete(List<QuestionImgDTO> imgs){
+
+    String uploadPath = "D:\\01-STUDY\\dev\\team\\backend_root\\src\\main\\resources\\static\\question_upload\\";
+    if(imgs != null &&  !imgs.isEmpty()){ // imgs 리스트가 비어있다면 실행 안 함
+      for(QuestionImgDTO img : imgs){
+        File file = new File(uploadPath + img.getAttachedImgName());
+        if(file.exists()){ // 이 경로에 파일이 존재한다면
+          file.delete(); // 삭제
+        }
+      }
+    }
+  }
 }

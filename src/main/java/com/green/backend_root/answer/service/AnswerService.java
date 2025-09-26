@@ -27,4 +27,9 @@ public class AnswerService {
   public AnswerDTO getAns(int qstId){
     return answerMapper.getAns(qstId);
   }
+
+  // 답변 수정
+  public void updateAns(AnswerDTO answerDTO){
+    answerMapper.updateAns(answerDTO);
+  }
 }

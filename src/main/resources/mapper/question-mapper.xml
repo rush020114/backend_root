@@ -111,4 +111,26 @@
         FROM QUESTION
         WHERE QST_STATUS = '진행중';
     </select>
+
+    <!-- 문의 수정 -->
+    <update id="updateQst">
+        UPDATE QUESTION
+        SET QST_TITLE = #{qstTitle}
+            , QST_CONTENT = #{qstContent}
+        WHERE QST_ID = #{qstId}
+    </update>
+
+    <!-- 문의 삭제 -->
+    <delete id="delQst">
+        DELETE FROM QUESTION
+        WHERE QST_ID = #{qstId}
+    </delete>
+
+    <!-- 문의 이미지 조회 -->
+    <select id="getQstImgList" resultMap="questionImg">
+        SELECT ATTACHED_IMG_NAME
+        FROM QUESTION_IMG
+        WHERE QST_ID = #{qstId}
+    </select>
+
 </mapper>

@@ -35,4 +35,12 @@
         FROM ANSWER
         WHERE QST_ID = #{qstId}
     </select>
+
+    <!-- 답변 수정 -->
+    <update id="updateAns">
+        UPDATE ANSWER
+        SET ANS_CONTENT = #{ansContent}
+        WHERE ANS_ID = #{ansId}
+    </update>
+
 </mapper>

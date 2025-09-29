@@ -2,6 +2,7 @@ package com.green.backend_root.question.service;
 
 import com.green.backend_root.question.dto.QuestionDTO;
 import com.green.backend_root.question.dto.QuestionImgDTO;
+import com.green.backend_root.question.dto.SearchQuestionDTO;
 import com.green.backend_root.question.mapper.QuestionMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -39,8 +40,8 @@ public class QuestionService {
   }
 
   // 문의 목록 조회
-  public List<QuestionDTO> getQstList(QuestionDTO questionDTO){
-    return questionMapper.getQstList(questionDTO);
+  public List<QuestionDTO> getQstList(SearchQuestionDTO searchQuestionDTO){
+    return questionMapper.getQstList(searchQuestionDTO);
   }
 
   // 답변 진행 중 개수

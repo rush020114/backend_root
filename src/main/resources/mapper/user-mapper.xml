@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.backend_root.User.mapper.UserMapper">
+	<resultMap id="users" type="com.green.backend_root.User.dto.UserDTO">
+        <id column="USER_ID"                property="userId" />
+        <result column="USER_PW"            property="userPw" />
+        <result column="USER_NAME"          property="userName" />
+        <result column="USER_TEL"           property="userTel" />
+        <result column="USER_EMAIL"         property="userEmail" />
+        <result column="USER_ROLE"          property="userRole" />
+        <result column="CREATE_DATE"        property="createDate" />
+    </resultMap>
+
+    <!--회원 정보 등록-->
+    <insert id="insertUser">
+        INSERT INTO USERS(
+            USER_ID
+            , USER_PW
+            , USER_NAME
+            , USER_TEL
+            , USER_EMAIL
+        ) VALUES(
+            #{userId}
+            , #{userPw}
+            , #{userName}
+            , CONCAT(#{userTelArr[0]}, '-', #{userTelArr[1]}, '-', #{userTelArr[2]}, '-')
+            , #{userEmail}
+        )
+    </insert>
+
+    <!--회원 아이디 중복 확인 조회-->
+    <select id="checkUserId" resultType="string">
+        SELECT
+            USER_ID
+        FROM USERS
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <!--회원 아이디와 비밀번호 로그인-->
+    <select id="selectUser" resultMap="users">
+        SELECT
+            USER_ID
+            , USER_NAME
+            , USER_ROLE
+        FROM USERS
+        WHERE USER_ID = #{userId}
+        AND USER_PW = #{userPw}
+    </select>
+</mapper>

@@ -15,5 +15,46 @@
         <result column="REG_DATE"   property="regDate" />
         <result column="APPR_DATE"   property="apprDate" />
         <result column="USER_ID"        property="userId" />
+        <association property="userDTO" resultMap="com.green.backend_root.User.mapper.UserMapper.users" />
     </resultMap>
+
+    <!-- 서비스 신청 -->
+    <select id="regService">
+        INSERT INTO APPLICATION (
+            FARM_NAME
+            , APPL_ROLE
+            , BUSINESS_TEL
+            , APPL_ADDR
+            , ADDR_DETAIL
+            , APPL_CONTENT
+            , USER_ID
+        ) VALUES (
+            #{farmName}
+            , #{applRole}
+            , CONCAT(#{businessTelArr[0]}, '-', #{businessTelArr[1]}, '-', #{businessTelArr[2]})
+            , #{applAddr}
+            , #{addrDetail}
+            , #{applContent}
+            , #{userId}
+        )
+
+    </select>
+
+    <!-- 서비스 기본 정보 조회 -->
+    <select id="getServiceInfo" resultMap="application">
+        SELECT APPL_NUM
+            , USER_NAME
+            , FARM_NAME
+            , APPL_ROLE
+            , USER_EMAIL
+            , BUSINESS_TEL
+            , APPL_ADDR
+            , REG_DATE
+            , APPR_DATE
+            , A.USER_ID
+        FROM APPLICATION A
+        INNER JOIN USERS U
+        ON A.USER_ID = U.USER_ID
+        WHERE A.USER_ID = #{userId}
+    </select>
 </mapper>

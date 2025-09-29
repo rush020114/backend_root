@@ -1,5 +1,6 @@
 package com.green.backend_root.application.dto;
 
+import com.green.backend_root.User.dto.UserDTO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,5 +21,6 @@ public class ApplicationDTO {
   private LocalDateTime regDate;
   private LocalDateTime apprDate;
   private String userId;
-  private String businessTelArr;
+  private String[] businessTelArr;
+  private UserDTO userDTO;
 }

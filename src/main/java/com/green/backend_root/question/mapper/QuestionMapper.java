@@ -3,6 +3,7 @@ package com.green.backend_root.question.mapper;
 import com.green.backend_root.answer.dto.AnswerDTO;
 import com.green.backend_root.question.dto.QuestionDTO;
 import com.green.backend_root.question.dto.QuestionImgDTO;
+import com.green.backend_root.question.dto.SearchQuestionDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public interface QuestionMapper {
   QuestionDTO getQstDetail(QuestionDTO questionDTO);
 
   // 문의 목록 조회
-  List<QuestionDTO>  getQstList(QuestionDTO questionDTO);
+  List<QuestionDTO>  getQstList(SearchQuestionDTO searchQuestionDTO);
 
   // 답변 등록 시 답변 상태 바꾸기
   void updateQstStatus(AnswerDTO answerDTO);

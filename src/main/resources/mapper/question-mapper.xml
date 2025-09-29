@@ -36,7 +36,7 @@
 
     <!-- 문의 등록 때 문의 번호 조회 -->
     <select id="getQstId" resultType="String">
-        SELECT COUNT(USER_ID) + 1
+        SELECT IFNULL(MAX(QST_ID), 0) + 1
         FROM QUESTION
     </select>
 
@@ -92,8 +92,24 @@
             , QST_DATE
             , QST_STATUS
         FROM QUESTION
-    <if test='!memRole.equals("ADMIN")'>
-        WHERE USER_ID = #{userId}
+        WHERE 1 = 1
+    <if test='qstId != null and !qstId.equals("")'>
+        AND QST_ID = #{qstId}
+    </if>
+    <if test='!userRole.equals("ADMIN")'>
+        AND USER_ID = #{userId}
+    </if>
+    <if test='userId != null and !userId.equals("")'>
+        AND USER_ID LIKE CONCAT('%', #{userId}, '%')
+    </if>
+    <if test='qstStatus != null and !qstStatus.equals("")'>
+        AND QST_STATUS = #{qstStatus}
+    </if>
+    <if test='qstTitle != null and !qstTitle.equals("")'>
+        AND QST_TITLE LIKE CONCAT('%', #{qstTitle}, '%')
+    </if>
+    <if test='qstDate != null and !qstDate.equals("")'>
+        AND TO_CHAR(QST_DATE, 'YYYY-MM-DD') = #{qstDate}
     </if>
         ORDER BY QST_DATE DESC
     </select>

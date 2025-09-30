@@ -1,5 +1,6 @@
 package com.green.backend_root.question.controller;
 
+import com.green.backend_root.common.NotificationController;
 import com.green.backend_root.question.dto.QuestionDTO;
 import com.green.backend_root.question.dto.QuestionImgDTO;
 import com.green.backend_root.question.dto.SearchQuestionDTO;
@@ -23,6 +24,7 @@ import java.util.List;
 @RequestMapping("/questions")
 public class QuestionController {
   private final QuestionService questionService;
+  private final NotificationController notificationController;
 
   // 문의 등록 api
   @PostMapping("")
@@ -41,6 +43,9 @@ public class QuestionController {
       }
       // 문의 등록
       questionService.regQst(questionImgDTOList, questionDTO);
+
+      // 관리자에게 알림
+      notificationController.notifyAdmin("새 문의가 등록되었습니다.");
       return ResponseEntity
               .status(HttpStatus.CREATED)
               .body("등록완료");

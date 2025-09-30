@@ -11,7 +11,7 @@
         <result column="USER_ID"     property="userId" />
         <result column="QST_DATE"    property="qstDate" />
         <result column="QST_STATUS"  property="qstStatus" />
-        <association property="userDTO" resultMap="com.green.backend_root.User.mapper.UserMapper.users" />
+        <association property="userDTO" resultMap="com.green.backend_root.user.mapper.UserMapper.users" />
         <collection property="questionImgDTOList" resultMap="questionImg" />
     </resultMap>
 

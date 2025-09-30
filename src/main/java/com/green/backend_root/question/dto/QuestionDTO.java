@@ -1,6 +1,6 @@
 package com.green.backend_root.question.dto;
 
-import com.green.backend_root.User.dto.UserDTO;
+import com.green.backend_root.user.dto.UserDTO;
 import com.green.backend_root.application.dto.ApplicationDTO;
 import lombok.Getter;
 import lombok.Setter;

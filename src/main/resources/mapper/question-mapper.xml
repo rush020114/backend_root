@@ -11,6 +11,7 @@
         <result column="USER_ID"     property="userId" />
         <result column="QST_DATE"    property="qstDate" />
         <result column="QST_STATUS"  property="qstStatus" />
+        <association property="userDTO" resultMap="com.green.backend_root.User.mapper.UserMapper.users" />
         <collection property="questionImgDTOList" resultMap="questionImg" />
     </resultMap>
 
@@ -24,18 +25,20 @@
     <!-- 문의 등록 -->
     <insert id="regQst">
         INSERT INTO QUESTION (
-            QST_TITLE
+            QST_ID
+            , QST_TITLE
             , QST_CONTENT
             , USER_ID
         ) VALUES (
-            #{qstTitle}
+            #{qstId}
+            , #{qstTitle}
             , #{qstContent}
             , #{userId}
         )
     </insert>
 
     <!-- 문의 등록 때 문의 번호 조회 -->
-    <select id="getQstId" resultType="String">
+    <select id="getQstId" resultType="int">
         SELECT IFNULL(MAX(QST_ID), 0) + 1
         FROM QUESTION
     </select>
@@ -68,7 +71,7 @@
         SELECT Q.QST_ID
             , QST_TITLE
             , QST_CONTENT
-            , USER_ID
+            , Q.USER_ID
             , QST_DATE
             , QST_STATUS
         <if test="imgCnt != 0">
@@ -76,11 +79,16 @@
             , ORIGIN_IMG_NAME
             , ATTACHED_IMG_NAME
         </if>
+            , USER_EMAIL
+            , USER_TEL
+            , USER_NAME
         FROM QUESTION Q
     <if test="imgCnt != 0">
         INNER JOIN QUESTION_IMG I
         ON Q.QST_ID = I.QST_ID
     </if>
+        INNER JOIN USERS U
+        ON Q.USER_ID = U.USER_ID
         WHERE Q.QST_ID = #{qstId}
     </select>
     

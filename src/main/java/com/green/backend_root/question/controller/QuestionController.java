@@ -26,6 +26,7 @@ public class QuestionController {
 
   // 문의 등록 api
   @PostMapping("")
+  @Transactional(rollbackFor = Exception.class)
   public ResponseEntity<?> regQst(@RequestParam(name = "questionImgs", required = false) MultipartFile[] questionImgs
                     , QuestionDTO questionDTO){
     try {

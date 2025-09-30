@@ -1,5 +1,7 @@
 package com.green.backend_root.question.dto;
 
+import com.green.backend_root.User.dto.UserDTO;
+import com.green.backend_root.application.dto.ApplicationDTO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,6 +23,7 @@ public class QuestionDTO {
   private String userRole;
   // 문의 상세 조회 시 이미지 등록 여부를 판단
   private int imgCnt;
+  private UserDTO userDTO;
 
   public QuestionDTO(){
   }

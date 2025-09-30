@@ -11,7 +11,7 @@ public class QuestionImgDTO {
   private int imgNum;
   private String originImgName;
   private String attachedImgName;
-  private String qstId;
+  private int qstId;
 
   public QuestionImgDTO(){
   }

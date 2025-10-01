@@ -23,6 +23,20 @@
             , CREATE_DATE
         FROM GROWING_ENVIRONMENT
     </select>
+
+    <!-- 7일 간 센서 데이터 조회 -->
+    <select id="getWeeklyGrowingList" resultMap="growing">
+        SELECT TEMPER_NUM
+        , TEMPER
+        , HUMIDITY
+        , SOIL_HUMIDITY
+        , ILLUMINATION
+        , CREATE_DATE
+        FROM GROWING_ENVIRONMENT
+        WHERE CREATE_DATE >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+        AND CREATE_DATE <![CDATA[<]]> CURDATE()
+        ORDER BY CREATE_DATE ASC
+    </select>
 </mapper>
 
 

@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -42,6 +44,30 @@ public class ApplicationController {
       return ResponseEntity
               .status(HttpStatus.INTERNAL_SERVER_ERROR)
               .body("조회 중 서버 오류 발생");
+    }
+  }
+
+  // 서비스 신청 현황 조회 api
+  @GetMapping("/list")
+  public List<ApplicationDTO> getApplicationList(
+          @RequestParam(required = false) String userName
+  ) {
+    if (userName != null && !userName.isEmpty()) {
+      return applicationService.searchByName(userName);
+    }
+    return applicationService.getApplicationList();
+  }
+
+  // 서비스 승인 처리 api
+  @PutMapping("/approve/{applNum}")
+  public ResponseEntity<?> approveApplication(@PathVariable("applNum") int applNum) {
+    try {
+      applicationService.approveApplication(applNum);
+      return ResponseEntity.ok("승인 완료");
+    } catch (Exception e) {
+      return ResponseEntity
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("승인 중 오류 발생");
     }
   }
 }

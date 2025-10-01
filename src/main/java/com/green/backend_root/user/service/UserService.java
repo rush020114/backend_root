@@ -5,6 +5,8 @@ import com.green.backend_root.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -25,4 +27,13 @@ public class UserService {
     return userMapper.selectUser(userDTO);
   }
 
+  //회원 목록 조회용 메서드
+  public List<UserDTO> getUserList(){
+    return userMapper.getUserList();
+  }
+
+  // 회원 삭제
+  public void deleteUser(String userId) {
+    userMapper.deleteUser(userId);
+  }
 }

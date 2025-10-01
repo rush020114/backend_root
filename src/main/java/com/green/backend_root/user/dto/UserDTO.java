@@ -1,4 +1,4 @@
-package com.green.backend_root.User.dto;
+package com.green.backend_root.user.dto;
 
 import lombok.Data;
 

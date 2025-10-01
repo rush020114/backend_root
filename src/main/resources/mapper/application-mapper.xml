@@ -15,7 +15,7 @@
         <result column="REG_DATE"   property="regDate" />
         <result column="APPR_DATE"   property="apprDate" />
         <result column="USER_ID"        property="userId" />
-        <association property="userDTO" resultMap="com.green.backend_root.User.mapper.UserMapper.users" />
+        <association property="userDTO" resultMap="com.green.backend_root.user.mapper.UserMapper.users" />
     </resultMap>
 
     <!-- 서비스 신청 -->

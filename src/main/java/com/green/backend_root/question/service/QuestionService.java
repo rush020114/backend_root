@@ -63,7 +63,7 @@ public class QuestionService {
   }
 
   // 문의 이미지 조회
-  public List<QuestionImgDTO> getQstImgList(int qstId){
+  public List<String> getQstImgList(int qstId){
     return questionMapper.getQstImgList(qstId);
   }
 }

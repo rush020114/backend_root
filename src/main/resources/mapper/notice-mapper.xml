@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.backend_root.notice.mapper.NoticeMapper">
+	
+	<!-- Notice ResultMap -->
+	<resultMap id="notice" type="com.green.backend_root.notice.dto.NoticeDTO">
+		<id property="noticeId" column="NOTICE_ID"/>
+		<result property="noticeTitle" column="NOTICE_TITLE"/>
+		<result property="noticeContent" column="NOTICE_CONTENT"/>
+		<result property="noticeDate" column="NOTICE_DATE"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="isImportant" column="IS_IMPORTANT"/>
+	</resultMap>
+	
+	<!-- 공지 등록 시 공지 번호 조회 -->
+	<select id="getNoticeId" resultType="int">
+		SELECT IFNULL(MAX(NOTICE_ID), 0) + 1
+		FROM NOTICE
+	</select>
+	
+	<!-- 공지 등록 -->
+	<insert id="regNotice">
+		INSERT INTO NOTICE(
+            NOTICE_ID
+		    , NOTICE_TITLE
+			, NOTICE_CONTENT
+			, USER_ID
+			, IS_IMPORTANT
+		) VALUES(
+            #{noticeId}
+			, #{noticeTitle}
+			, #{noticeContent}
+			, #{userId}
+			, #{isImportant}
+		)
+	</insert>
+	
+	<!-- 공지 목록 조회 -->
+	<select id="getNoticeList" resultMap="notice">
+		SELECT 
+			NOTICE_ID
+			, NOTICE_TITLE
+			, NOTICE_CONTENT
+			, NOTICE_DATE
+			, USER_ID
+			, IS_IMPORTANT
+		FROM NOTICE
+		ORDER BY IS_IMPORTANT DESC, NOTICE_DATE DESC
+	</select>
+	
+	<!-- 공지 상세 조회 -->
+	<select id="getNoticeDetail" resultMap="notice">
+		SELECT 
+			NOTICE_ID
+			, NOTICE_TITLE
+			, NOTICE_CONTENT
+			, NOTICE_DATE
+			, USER_ID
+			, IS_IMPORTANT
+		FROM NOTICE
+		WHERE NOTICE_ID = #{noticeId}
+	</select>
+	
+	<!-- 공지 수정 -->
+	<update id="updateNotice">
+		UPDATE NOTICE
+		SET NOTICE_TITLE = #{noticeTitle}
+			, NOTICE_CONTENT = #{noticeContent}
+			, IS_IMPORTANT = #{isImportant}
+		WHERE NOTICE_ID = #{noticeId}
+	</update>
+	
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.backend_root.motionBuzzer.mapper.MotionBuzzerMapper">
+    <resultMap id="motionBuzzer" type="com.green.backend_root.motionBuzzer.dto.MotionBuzzerDTO">
+        <id     column="STATUS_ID" property="statusId"/>
+        <result column="TIMESTAMP" property="timestamp"/>
+        <result column="MOTION_DETECTED" property="motionDetected"/>
+    </resultMap>
+
+    <!-- 로그 목록 조회 -->
+    <select id="getMotionBuzzerList" resultMap="motionBuzzer">
+        SELECT STATUS_ID, TIMESTAMP, MOTION_DETECTED
+        FROM DEVICE_STATUS
+        ORDER BY TIMESTAMP DESC
+    </select>
+
+
+    <!-- 통계 매핑 (DTO 재사용) -->
+    <resultMap id="motionBuzzerStats" type="com.green.backend_root.motionBuzzer.dto.MotionBuzzerDTO">
+        <result column="detectedCount" property="detectedCount"/>
+        <result column="lastDetected" property="lastDetected"/>
+    </resultMap>
+
+    <!-- 감지 횟수 + 최근 감지 시간 조회 -->
+    <select id="getMotionBuzzerStats" resultMap="motionBuzzerStats">
+        SELECT COUNT(*) AS detectedCount,
+            MAX(TIMESTAMP) AS lastDetected
+        FROM DEVICE_STATUS
+        WHERE MOTION_DETECTED = 1
+    </select>
+
+</mapper>

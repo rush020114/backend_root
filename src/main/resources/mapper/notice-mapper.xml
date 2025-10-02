@@ -7,12 +7,20 @@
 	
 	<!-- Notice ResultMap -->
 	<resultMap id="notice" type="com.green.backend_root.notice.dto.NoticeDTO">
-		<id property="noticeId" column="NOTICE_ID"/>
+		<id 	property="noticeId" column="NOTICE_ID"/>
 		<result property="noticeTitle" column="NOTICE_TITLE"/>
 		<result property="noticeContent" column="NOTICE_CONTENT"/>
 		<result property="noticeDate" column="NOTICE_DATE"/>
 		<result property="userId" column="USER_ID"/>
 		<result property="isImportant" column="IS_IMPORTANT"/>
+	</resultMap>
+
+	<!-- Notice 이미지 ResultMap -->
+	<resultMap id="noticeImg" type="com.green.backend_root.notice.dto.NoticeImgDTO">
+		<id 	property="imgNum" column="IMG_NUM"/>
+		<result property="originImgName" column="ORIGIN_IMG_NAME"/>
+		<result property="attachedImgName" column="ATTACHED_IMG_NAME"/>
+		<result property="noticeId" column="NOTICE_ID"/>
 	</resultMap>
 	
 	<!-- 공지 등록 시 공지 번호 조회 -->

@@ -5,7 +5,9 @@ import com.green.backend_root.question.dto.QuestionDTO;
 import com.green.backend_root.question.dto.QuestionImgDTO;
 import com.green.backend_root.question.dto.SearchQuestionDTO;
 import com.green.backend_root.question.service.QuestionService;
+import com.green.backend_root.util.FileUploadUtil;
 import com.green.backend_root.util.QuestionFileUploadUtil;
+import com.green.backend_root.util.UploadPath;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.Response;
@@ -39,7 +41,14 @@ public class QuestionController {
 
       // 이미지들 업로드
       if(questionImgs != null && questionImgs.length > 0){
-        questionImgDTOList = QuestionFileUploadUtil.multipleQstFileUpload(questionImgs);
+        List<String[]> uploadedImgs = FileUploadUtil.uploadFiles(questionImgs, UploadPath.QUESTION);
+
+        for(String[] fileInfo : uploadedImgs) {
+          QuestionImgDTO questionImgDTO = new QuestionImgDTO();
+          questionImgDTO.setOriginImgName(fileInfo[0]);
+          questionImgDTO.setAttachedImgName(fileInfo[1]);
+          questionImgDTOList.add(questionImgDTO);
+        }
       }
       // 문의 등록
       questionService.regQst(questionImgDTOList, questionDTO);

@@ -19,7 +19,7 @@
     </resultMap>
 
     <!-- 서비스 신청 -->
-    <select id="regService">
+    <insert id="regService">
         INSERT INTO APPLICATION (
             FARM_NAME
             , APPL_ROLE
@@ -38,7 +38,7 @@
             , #{userId}
         )
 
-    </select>
+    </insert>
 
     <!-- 서비스 기본 정보 조회 -->
     <select id="getServiceInfo" resultMap="application">

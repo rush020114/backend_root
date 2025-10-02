@@ -1,6 +1,6 @@
 package com.green.backend_root.application.dto;
 
-import com.green.backend_root.User.dto.UserDTO;
+import com.green.backend_root.user.dto.UserDTO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

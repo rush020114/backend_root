@@ -6,6 +6,7 @@ import com.green.backend_root.question.dto.SearchQuestionDTO;
 import com.green.backend_root.question.mapper.QuestionMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,11 +16,13 @@ public class QuestionService {
   private final QuestionMapper questionMapper;
 
   // 문의 등록
+  @Transactional(rollbackFor = Exception.class)
   public void regQst(List<QuestionImgDTO> questionImgDTOList, QuestionDTO questionDTO){
     // 이미지 등록 시 다음 문의 번호를 받을 변수
-    String nextQstId = questionMapper.getQstId();
+    int nextQstId = questionMapper.getQstId();
 
     // 문의 등록
+    questionDTO.setQstId(nextQstId);
     questionMapper.regQst(questionDTO);
 
     // 문의 이미지 등록

@@ -15,11 +15,11 @@
         <result column="REG_DATE"   property="regDate" />
         <result column="APPR_DATE"   property="apprDate" />
         <result column="USER_ID"        property="userId" />
-        <association property="userDTO" resultMap="com.green.backend_root.User.mapper.UserMapper.users" />
+        <association property="userDTO" resultMap="com.green.backend_root.user.mapper.UserMapper.users" />
     </resultMap>
 
     <!-- 서비스 신청 -->
-    <select id="regService">
+    <insert id="regService">
         INSERT INTO APPLICATION (
             FARM_NAME
             , APPL_ROLE
@@ -38,7 +38,7 @@
             , #{userId}
         )
 
-    </select>
+    </insert>
 
     <!-- 서비스 기본 정보 조회 -->
     <select id="getServiceInfo" resultMap="application">
@@ -56,5 +56,49 @@
         INNER JOIN USERS U
         ON A.USER_ID = U.USER_ID
         WHERE A.USER_ID = #{userId}
+    </select>
+
+    <!-- 서비스 신청 목록 전체 조회 -->
+    <select id="getApplicationList" resultMap="application">
+        SELECT A.APPL_NUM
+             , A.USER_ID
+             , U.USER_NAME
+             , U.USER_EMAIL
+             , A.BUSINESS_TEL
+             , A.APPL_ROLE
+             , A.REG_DATE
+             , A.APPR_DATE
+             , CASE
+                   WHEN A.APPR_DATE IS NULL THEN '대기 중'
+                   ELSE '승인 완료'
+               END AS STATUS
+        FROM APPLICATION A
+        INNER JOIN USERS U
+        ON A.USER_ID = U.USER_ID
+        ORDER BY A.REG_DATE DESC
+    </select>
+
+    <!-- 서비스 승인 처리 -->
+    <update id="approveApplication">
+        UPDATE APPLICATION
+        SET APPR_DATE = NOW()
+        WHERE APPL_NUM = #{applNum}
+    </update>
+
+    <!-- 회원명으로 검색 -->
+    <select id="searchByName" resultMap="application">
+        SELECT A.APPL_NUM
+            , A.USER_ID
+            , U.USER_NAME
+            , U.USER_EMAIL
+            , A.BUSINESS_TEL
+            , A.APPL_ROLE
+            , A.REG_DATE
+            , A.APPR_DATE
+        FROM APPLICATION A
+        INNER JOIN USERS U
+        ON A.USER_ID = U.USER_ID
+        WHERE U.USER_NAME LIKE CONCAT('%', #{userName}, '%')
+        ORDER BY A.REG_DATE DESC
     </select>
 </mapper>

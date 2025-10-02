@@ -14,7 +14,7 @@ public interface QuestionMapper {
   void regQst(QuestionDTO questionDTO);
 
   // 문의 이미지 등록을 위한 문의 번호 조회
-  String getQstId();
+  int getQstId();
 
   // 문의 이미지 등록
   void regQstImgs(List<QuestionImgDTO> questionImgDTOList);

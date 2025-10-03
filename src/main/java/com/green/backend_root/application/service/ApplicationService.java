@@ -36,4 +36,9 @@ public class ApplicationService {
   public List<ApplicationDTO> searchByName(String userName) {
     return applicationMapper.searchByName(userName);
   }
+
+  // 총 이용일
+  public int getTotalDays(String userId){
+    return applicationMapper.getTotalDays(userId);
+  }
 }

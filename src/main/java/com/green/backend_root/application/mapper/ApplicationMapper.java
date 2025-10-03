@@ -21,4 +21,7 @@ public interface ApplicationMapper {
 
   //이름으로 검색 조회
   List<ApplicationDTO> searchByName(String userName);
+
+  // 총 이용일
+  int getTotalDays(String userId);
 }

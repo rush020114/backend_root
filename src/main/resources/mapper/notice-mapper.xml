@@ -58,7 +58,7 @@
 		(
 			#{noticeImg.originImgName}
 			, #{noticeImg.attachedImgName}
-			, #{noticeImg.qstId}
+			, #{noticeImg.noticeId}
 		)
 	</foreach>
 	</insert>
@@ -72,21 +72,35 @@
 	
 	<!-- 공지 목록 조회 -->
 	<select id="getNoticeList" resultMap="notice">
-		SELECT 
-			NOTICE_ID
+		SELECT N.NOTICE_ID
 			, NOTICE_TITLE
-			, NOTICE_CONTENT
-			, NOTICE_DATE
 			, USER_ID
+			, NOTICE_DATE
 			, IS_IMPORTANT
-		FROM NOTICE
+			, IFNULL(IMG_NUM, 0) IMG_NUM
+		FROM NOTICE N
+		LEFT JOIN NOTICE_IMG I
+		ON N.NOTICE_ID = I.NOTICE_ID
+		WHERE 1 = 1
+	<if test='noticeId != null and !noticeId.equals("")'>
+		AND N.NOTICE_ID = #{noticeId}
+	</if>
+	<if test='noticeTitle != null and !noticeTitle.equals("")'>
+		AND NOTICE_TITLE LIKE CONCAT('%', #{noticeTitle}, '%')
+	</if>
+	<if test='userId != null and !userId.equals("")'>
+		AND USER_ID LIKE CONCAT('%', #{userId}, '%')
+	</if>
+	<if test='noticeDate != null and !noticeDate.equals("")'>
+		AND TO_CHAR(NOTICE_DATE, 'YYYY-MM-DD') = #{noticeDate}
+	</if>
 		ORDER BY IS_IMPORTANT DESC, NOTICE_DATE DESC
 	</select>
 	
 	<!-- 공지 상세 조회 -->
 	<select id="getNoticeDetail" resultMap="notice">
 		SELECT 
-			NOTICE_ID
+			N.NOTICE_ID
 			, NOTICE_TITLE
 			, NOTICE_CONTENT
 			, NOTICE_DATE
@@ -102,7 +116,7 @@
 			INNER JOIN NOTICE_IMG I
 			ON N.NOTICE_ID = I.NOTICE_ID
 		</if>
-		WHERE NOTICE_ID = #{noticeId}
+		WHERE N.NOTICE_ID = #{noticeId}
 	</select>
 	
 	<!-- 공지 수정 -->

@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,6 +20,7 @@ public class NoticeDTO {
   private String isImportant;     // 중요 공지 여부 (Y/N)
   // 문의 상세 조회 시 이미지 등록 여부를 판단
   private int imgCnt;
+  private List<NoticeImgDTO> noticeImgDTOList;
 
   public NoticeDTO(){
   }

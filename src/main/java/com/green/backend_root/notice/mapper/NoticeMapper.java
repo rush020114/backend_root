@@ -2,6 +2,7 @@ package com.green.backend_root.notice.mapper;
 
 import com.green.backend_root.notice.dto.NoticeDTO;
 import com.green.backend_root.notice.dto.NoticeImgDTO;
+import com.green.backend_root.notice.dto.SearchNoticeDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public interface NoticeMapper {
     int getImgCnt(NoticeDTO noticeDTO);
     
     // 공지 목록 조회 쿼리 실행하는 메서드
-    List<NoticeDTO> getNoticeList();
+    List<NoticeDTO> getNoticeList(SearchNoticeDTO searchNoticeDTO);
     
     // 공지 상세 조회 쿼리 실행하는 메서드
     NoticeDTO getNoticeDetail(NoticeDTO noticeDTO);

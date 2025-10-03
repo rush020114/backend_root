@@ -2,6 +2,7 @@ package com.green.backend_root.notice.service;
 
 import com.green.backend_root.notice.dto.NoticeDTO;
 import com.green.backend_root.notice.dto.NoticeImgDTO;
+import com.green.backend_root.notice.dto.SearchNoticeDTO;
 import com.green.backend_root.notice.mapper.NoticeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,8 +35,8 @@ public class NoticeService {
     }
     
     // 공지 목록 조회 기능 구현 메서드
-    public List<NoticeDTO> getNoticeList() {
-      return noticeMapper.getNoticeList();
+    public List<NoticeDTO> getNoticeList(SearchNoticeDTO searchNoticeDTO) {
+      return noticeMapper.getNoticeList(searchNoticeDTO);
     }
     
     // 공지 상세 조회 기능 구현 메서드

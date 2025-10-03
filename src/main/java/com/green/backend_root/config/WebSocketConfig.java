@@ -20,7 +20,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   public void registerStompEndpoints(StompEndpointRegistry registry) {
     // WebSocket 연결 엔드포인트 설정
     registry.addEndpoint("/ws")  // ws://localhost:8080/ws 로 연결
-            .setAllowedOriginPatterns("http://localhost:5173", "http://localhost:5174")  // react 서버 허용 (CORS)
+            .setAllowedOriginPatterns("*")  // 모든 origin 허용 (학원 내부망 포함)
             .withSockJS();  // SockJS 지원 (WebSocket 미지원 브라우저 대응)
   }
 }

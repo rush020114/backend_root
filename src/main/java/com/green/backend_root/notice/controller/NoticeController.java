@@ -2,6 +2,7 @@ package com.green.backend_root.notice.controller;
 
 import com.green.backend_root.notice.dto.NoticeDTO;
 import com.green.backend_root.notice.dto.NoticeImgDTO;
+import com.green.backend_root.notice.dto.SearchNoticeDTO;
 import com.green.backend_root.notice.service.NoticeService;
 import com.green.backend_root.util.FileUploadUtil;
 import com.green.backend_root.util.UploadPath;
@@ -56,9 +57,9 @@ public class NoticeController {
 
   // 공지 목록 조회 API
   @GetMapping("")
-  public ResponseEntity<?> getNoticeList() {
+  public ResponseEntity<?> getNoticeList(SearchNoticeDTO searchNoticeDTO) {
     try {
-      List<NoticeDTO> noticeList = noticeService.getNoticeList();
+      List<NoticeDTO> noticeList = noticeService.getNoticeList(searchNoticeDTO);
       return ResponseEntity
               .status(HttpStatus.OK)
               .body(noticeList);

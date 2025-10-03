@@ -9,11 +9,11 @@ import lombok.ToString;
 @ToString
 // 검색 데이터를 담기 위한 dto
 public class SearchNoticeDTO {
-    private String noticeId;
-    private String noticeTitle;
-    private String userId;
-    private String noticeDate;
+  private String noticeId;
+  private String noticeTitle;
+  private String userId;
+  private String noticeDate;
 
-    public SearchNoticeDTO(){
-    }
+  public SearchNoticeDTO(){
+  }
 }

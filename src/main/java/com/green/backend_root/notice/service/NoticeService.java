@@ -4,6 +4,8 @@ import com.green.backend_root.notice.dto.NoticeDTO;
 import com.green.backend_root.notice.dto.NoticeImgDTO;
 import com.green.backend_root.notice.dto.SearchNoticeDTO;
 import com.green.backend_root.notice.mapper.NoticeMapper;
+import com.green.backend_root.util.FileUploadUtil;
+import com.green.backend_root.util.UploadPath;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,4 +64,18 @@ public class NoticeService {
     public List<String> getNoticeImgList(int noticeId){
       return noticeMapper.getNoticeImgList(noticeId);
     }
+
+    // 공지 목록 삭제
+    @Transactional(rollbackFor = Exception.class)
+    public int delNoticeList(int[] noticeIdArr){
+      // 공지 이미지 조회
+      List<String> noticeAttachedImgNameList = noticeMapper.getNoticeImgListForDelList(noticeIdArr);
+
+      // 공지 이미지 삭제
+      FileUploadUtil.deleteFiles(noticeAttachedImgNameList, UploadPath.NOTICE);
+
+      // 공지 목록 삭제
+      return noticeMapper.delNoticeList(noticeIdArr);
+    }
+
 }

@@ -35,4 +35,10 @@ public interface NoticeMapper {
 
     // 공지 이미지 조회
     List<String> getNoticeImgList(int noticeId);
+
+    // 공지 목록 삭제
+    int delNoticeList(int[] noticeIdArr);
+
+    // 공지 이미지 조회(공지 목록 삭제를 위한 것)
+    List<String> getNoticeImgListForDelList(int[] noticeIdArr);
 }

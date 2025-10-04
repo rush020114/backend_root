@@ -116,7 +116,7 @@ public class NoticeController {
   @Transactional(rollbackFor = Exception.class)
   public ResponseEntity<?> delNotice(@PathVariable("noticeId") int noticeId){
     try {
-      // 공지 삭제 시 이미짇 삭제
+      // 공지 삭제 시 이미지 삭제
       List<String> noticeImgDTOList = noticeService.getNoticeImgList(noticeId);
 
       // 공지 삭제
@@ -131,6 +131,22 @@ public class NoticeController {
       return ResponseEntity
               .status(HttpStatus.INTERNAL_SERVER_ERROR)
               .body("삭제 중 서버 오류 발생");
+    }
+  }
+
+  // 공지 목록 삭제 api
+  @PostMapping("/delete")
+  public ResponseEntity<?> delNoticeList(@RequestBody NoticeDTO noticeDTO){
+    try {
+      int deleteCnt = noticeService.delNoticeList(noticeDTO.getNoticeIdArr());
+      return ResponseEntity
+              .status(HttpStatus.OK)
+              .body(deleteCnt + "건의 공지가 성공적으로 삭제되었습니다.");
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseEntity
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("공지 목록 삭제 중 서버 오류 발생");
     }
   }
 }

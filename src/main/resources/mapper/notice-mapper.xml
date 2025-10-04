@@ -135,10 +135,29 @@
 	</delete>
 
 	<!-- 공지 이미지 조회 -->
-	<select id="getNoticeImgList" resultMap="noticeImg">
+	<select id="getNoticeImgList" resultType="String">
 		SELECT ATTACHED_IMG_NAME
-		FROM QUESTION_IMG
+		FROM NOTICE_IMG
 		WHERE NOTICE_ID = #{noticeId}
+	</select>
+	
+	<!-- 공지 목록 삭제 -->
+	<delete id="delNoticeList">
+		DELETE FROM NOTICE
+		WHERE NOTICE_ID IN
+	<foreach collection="noticeIdArr" item="noticeId" open="(" close=")" separator=",">
+		#{noticeId}
+	</foreach>
+	</delete>
+
+	<!-- 공지 이미지 조회(공지 목록 삭제를 위한 것) -->
+	<select id="getNoticeImgListForDelList" resultType="String">
+		SELECT ATTACHED_IMG_NAME
+		FROM NOTICE_IMG
+		WHERE NOTICE_ID IN
+	<foreach collection="noticeIdArr" item="noticeId" open="(" close=")" separator=",">
+		#{noticeId}
+	</foreach>
 	</select>
 	
 </mapper>

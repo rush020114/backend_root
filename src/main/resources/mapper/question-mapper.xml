@@ -154,7 +154,7 @@
     </delete>
 
     <!-- 문의 이미지 조회 -->
-    <select id="getQstImgList" resultMap="questionImg">
+    <select id="getQstImgList" resultType="String">
         SELECT ATTACHED_IMG_NAME
         FROM QUESTION_IMG
         WHERE QST_ID = #{qstId}

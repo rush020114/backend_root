@@ -128,6 +128,25 @@
 		WHERE NOTICE_ID = #{noticeId}
 	</update>
 
+	<!-- 공지 이미지 삭제 -->
+	<delete id="deleteNoticeImgs">
+		DELETE FROM NOTICE_IMG
+		WHERE IMG_NUM IN
+	<foreach collection="imgNumArr" item="imgNum" open="(" close=")" separator=",">
+		#{imgNum}
+	</foreach>
+	</delete>
+
+    <!-- 공지 이미지 조회(공지 수정 시 이미지 삭제를 위한 것) -->
+    <select id="getNoticeImgListForUpdate" resultType="String">
+		SELECT ATTACHED_IMG_NAME
+		FROM NOTICE_IMG
+		WHERE IMG_NUM IN
+    <foreach collection="imgNumArr" item="imgNum" open="(" close=")" separator=",">
+        #{imgNum}
+    </foreach>
+    </select>
+
 	<!-- 공지 삭제 -->
 	<delete id="delNotice">
 		DELETE FROM NOTICE
@@ -159,5 +178,5 @@
 		#{noticeId}
 	</foreach>
 	</select>
-	
+
 </mapper>

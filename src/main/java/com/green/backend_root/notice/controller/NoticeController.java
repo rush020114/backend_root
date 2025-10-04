@@ -97,6 +97,7 @@ public class NoticeController {
   public ResponseEntity<?> updateNotice(
           @PathVariable("noticeId") int noticeId,
           @RequestBody NoticeDTO noticeDTO) {
+    System.out.println(noticeDTO.toString());
     try {
       noticeDTO.setNoticeId(noticeId);
       noticeService.updateNotice(noticeDTO);

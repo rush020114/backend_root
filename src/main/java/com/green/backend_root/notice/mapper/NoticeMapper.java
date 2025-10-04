@@ -30,6 +30,12 @@ public interface NoticeMapper {
     // 공지 수정 쿼리 실행하는 메서드
     void updateNotice(NoticeDTO noticeDTO);
 
+    // 공지 이미지 삭제
+    void deleteNoticeImgs(int[] imgNumArr);
+
+    // 공지 이미지 조회(공지 수정 시 이미지 삭제를 위한 것)
+    List<String> getNoticeImgListForUpdate(int[] imgNumArr);
+
     // 공지 삭제
     void delNotice(int noticeId);
 

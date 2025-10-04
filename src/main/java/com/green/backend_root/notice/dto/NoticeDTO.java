@@ -22,6 +22,7 @@ public class NoticeDTO {
   private int imgCnt;
   private List<NoticeImgDTO> noticeImgDTOList;
   private int[] noticeIdArr;
+  private int[] imgNumArr;
 
   public NoticeDTO(){
   }

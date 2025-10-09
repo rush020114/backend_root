@@ -101,4 +101,11 @@
         WHERE U.USER_NAME LIKE CONCAT('%', #{userName}, '%')
         ORDER BY A.REG_DATE DESC
     </select>
+    
+    <!-- 총 이용일 -->
+    <select id="getTotalDays" resultType="int">
+        SELECT DATEDIFF(SYSDATE(), APPR_DATE) + 1 AS 총이용일
+        FROM application
+        WHERE USER_ID = #{userId};
+    </select>
 </mapper>

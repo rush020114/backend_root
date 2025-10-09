@@ -94,15 +94,18 @@
     
     <!-- 문의 목록 조회 -->
     <select id="getQstList" resultMap="question">
-        SELECT QST_ID
+        SELECT Q.QST_ID
             , QST_TITLE
             , USER_ID
             , QST_DATE
             , QST_STATUS
-        FROM QUESTION
+            , IFNULL(IMG_NUM, 0) IMG_NUM
+        FROM QUESTION Q
+        LEFT JOIN QUESTION_IMG I
+        ON Q.QST_ID = I.QST_ID
         WHERE 1 = 1
     <if test='qstId != null and !qstId.equals("")'>
-        AND QST_ID = #{qstId}
+        AND Q.QST_ID = #{qstId}
     </if>
     <if test='!userRole.equals("ADMIN")'>
         AND USER_ID = #{userId}
@@ -151,7 +154,7 @@
     </delete>
 
     <!-- 문의 이미지 조회 -->
-    <select id="getQstImgList" resultMap="questionImg">
+    <select id="getQstImgList" resultType="String">
         SELECT ATTACHED_IMG_NAME
         FROM QUESTION_IMG
         WHERE QST_ID = #{qstId}

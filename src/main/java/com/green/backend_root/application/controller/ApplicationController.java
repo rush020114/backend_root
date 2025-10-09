@@ -70,4 +70,18 @@ public class ApplicationController {
               .body("승인 중 오류 발생");
     }
   }
+
+  // 총 이용일 조회 api
+  @GetMapping("/total-day/{userId}")
+  public ResponseEntity<?> getTotalDays(@PathVariable("userId") String userId){
+    try {
+      return ResponseEntity
+              .status(HttpStatus.OK)
+              .body(applicationService.getTotalDays(userId));
+    } catch (Exception e) {
+      return ResponseEntity
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("이용일 조회 중 서버 오류 발생");
+    }
+  }
 }

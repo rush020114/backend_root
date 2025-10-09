@@ -41,5 +41,5 @@ public interface QuestionMapper {
   void delQst(int qstId);
 
   // 문의 이미지 조회
-  List<QuestionImgDTO> getQstImgList(int qstId);
+  List<String> getQstImgList(int qstId);
 }

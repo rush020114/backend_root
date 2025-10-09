@@ -142,13 +142,13 @@ public class QuestionController {
   public ResponseEntity<?> delQst(@PathVariable("qstId") int qstId){
     try {
       // 문의 삭제 시 이미지도 삭제
-      List<QuestionImgDTO> questionImgDTOList = questionService.getQstImgList(qstId);
+      List<String> questionImgDTOList = questionService.getQstImgList(qstId);
 
       // 문의 삭제
       questionService.delQst(qstId);
 
       // 이미지 삭제
-      QuestionFileUploadUtil.QuestionFileDelete(questionImgDTOList);
+      FileUploadUtil.deleteFiles(questionImgDTOList, UploadPath.QUESTION);
       return ResponseEntity
               .status(HttpStatus.OK)
               .body("삭제 완료");

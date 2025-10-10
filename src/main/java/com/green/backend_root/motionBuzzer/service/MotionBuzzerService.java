@@ -22,4 +22,8 @@ public class MotionBuzzerService {
     return motionBuzzerMapper.getMotionBuzzerStats();
   };
 
+  // 오늘 제어 횟수 조회
+  public List<MotionBuzzerDTO> getTodayDeviceStatus(){
+    return motionBuzzerMapper.getTodayDeviceStatus();
+  }
 }

@@ -32,4 +32,26 @@
         WHERE MOTION_DETECTED = 1
     </select>
 
+    <resultMap id="deviceStatus" type="com.green.backend_root.motionBuzzer.dto.MotionBuzzerDTO">
+        <id     column="STATUS_ID" property="statusId"/>
+        <result column="TIMESTAMP" property="timestamp"/>
+        <result column="MOTION_DETECTED" property="motionDetected"/>
+        <result column="FAN_MOTOR" property="fanMotor"/>
+        <result column="WATER_PUMP" property="waterPump"/>
+        <result column="LED_LIGHT" property="ledLight"/>
+    </resultMap>
+
+    <!-- 오늘 제어 횟수 조회 -->
+    <select id="getTodayDeviceStatus" resultMap="deviceStatus">
+        SELECT STATUS_ID
+            , TIMESTAMP
+            , MOTION_DETECTED
+            , FAN_MOTOR
+            , WATER_PUMP
+            , LED_LIGHT
+        FROM DEVICE_STATUS
+        WHERE DATE(TIMESTAMP) = CURDATE()
+        ORDER BY TIMESTAMP DESC;
+    </select>
+
 </mapper>

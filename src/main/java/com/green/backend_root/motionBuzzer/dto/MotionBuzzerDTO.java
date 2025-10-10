@@ -13,4 +13,8 @@ public class MotionBuzzerDTO {
   // 통계용 필드 추가
   private Integer detectedCount;     // 감지 횟수
   private LocalDateTime lastDetected;// 최근 감지 시간
+
+  private int fanMotor;
+  private int waterPump;
+  private int ledLight;
 }

@@ -14,4 +14,6 @@ public interface MotionBuzzerMapper {
   // 감지 횟수 + 최근 감지 시간 조회
   MotionBuzzerDTO getMotionBuzzerStats();
 
+  // 오늘 제어 횟수 조회
+  List<MotionBuzzerDTO> getTodayDeviceStatus();
 }

@@ -4,6 +4,8 @@ import com.green.backend_root.motionBuzzer.dto.MotionBuzzerDTO;
 import com.green.backend_root.motionBuzzer.service.MotionBuzzerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +29,21 @@ public class MotionBuzzerController {
   @GetMapping("/stats")
   public MotionBuzzerDTO getMotionBuzzerStats() {
     return motionBuzzerService.getMotionBuzzerStats();
+  }
+
+  // 오늘 제어 횟수 조회
+  @GetMapping("/today")
+  public ResponseEntity<?> getTodayDeviceStatus(){
+    try {
+      return ResponseEntity
+              .status(HttpStatus.OK)
+              .body(motionBuzzerService.getTodayDeviceStatus());
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseEntity
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("조회 중 오류 발생");
+    }
   }
 
 }

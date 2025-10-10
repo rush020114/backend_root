@@ -49,4 +49,15 @@
         WHERE USER_ID = #{userId}
         AND USER_PW = #{userPw}
     </select>
+
+    <!--회원 아이디 찾기-->
+    <select id="findUserId">
+        SELECT
+            USER_ID
+        FROM USERS
+        WHERE USER_NAME = #{userId}
+        AND USER_EMAIL = #{userEmail}
+    </select>
+
+    <!--회원 비밀번호 찾기-->
 </mapper>

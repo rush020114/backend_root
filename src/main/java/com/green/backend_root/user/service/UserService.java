@@ -24,5 +24,4 @@ public class UserService {
   public UserDTO selectUser(UserDTO userDTO){
     return userMapper.selectUser(userDTO);
   }
-
 }

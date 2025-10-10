@@ -1,6 +1,7 @@
 package com.green.backend_root.email.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
@@ -34,18 +35,12 @@ public class EmailService {
     authCodeMap.put(email, code);
     expireTimeMap.put(email, LocalDateTime.now().plusMinutes(5));         // 5분 후 만료
 
-    // 테스트용: 콘솔에 인증번호 출력
-    System.out.println("==================");
-    System.out.println("이메일: " + email);
-    System.out.println("인증번호: " + code);
-    System.out.println("==================");
+    SimpleMailMessage message = new SimpleMailMessage();
+    message.setTo(email);                                                 // 받는 사람
+    message.setSubject("[회원가입] 이메일 인증번호 : [" + code + "]");                           // 제목
+    message.setText("다음 인증번호를 사용하여 회원가입을 완료하세요.\n[" + code + "]\n5분 후 만료됩니다.");     // 내용
 
-//    SimpleMailMessage message = new SimpleMailMessage();
-//    message.setTo(email);                                                 // 받는 사람
-//    message.setSubject("[회원가입] 이메일 인증번호 : [" + code + "]");                           // 제목
-//    message.setText("다음 인증번호를 사용하여 회원가입을 완료하세요.\n[" + code + "]\n5분 후 만료됩니다.");     // 내용
-//
-//    mailSender.send(message);                                            // 이메일 전송
+    mailSender.send(message);                                            // 이메일 전송
   }
 
   // 인증번호 검증 메서드
@@ -68,5 +63,16 @@ public class EmailService {
   public boolean isEmailVerified(String email){
     Boolean isVerified = emailVerifiedMap.get(email);
     return isVerified != null && isVerified;         // null이면 false 반환
+  }
+
+  // 이메일 회원 임시 비밀번호 발송
+  public void sendUserPw(String email, String tempPw){
+
+    SimpleMailMessage message = new SimpleMailMessage();
+    message.setTo(email);                                                 // 받는 사람
+    message.setSubject("[비밀번호 찾기] 임시 비밀번호 발급");                           // 제목
+    message.setText("임시 비밀번호 : " + tempPw + "\n로그인 후 비밀번호를 변경해주세요.");     // 내용
+
+    mailSender.send(message);
   }
 }

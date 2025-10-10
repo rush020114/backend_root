@@ -40,4 +40,9 @@ public class GrowingController {
               .body("조회 중 서버 오류 발생");
     }
   }
+
+  @GetMapping("/rev")
+  public List<GrowingDTO> getGrowingListRev(){
+    return growingService.getGrowingListRev();
+  }
 }

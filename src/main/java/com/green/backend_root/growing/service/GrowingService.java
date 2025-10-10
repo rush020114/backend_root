@@ -21,4 +21,8 @@ public class GrowingService {
   public List<GrowingDTO> getWeeklyGrowingList(){
     return growingMapper.getWeeklyGrowingList();
   }
+
+  public List<GrowingDTO> getGrowingListRev(){
+    return growingMapper.getGrowingListRev();
+  }
 }

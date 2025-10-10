@@ -37,6 +37,18 @@
         AND CREATE_DATE <![CDATA[<]]> CURDATE()
         ORDER BY CREATE_DATE ASC
     </select>
+
+    <!-- 센서 데이터 상세 거꾸로 조회 -->
+    <select id="getGrowingListRev" resultMap="growing">
+        SELECT TEMPER_NUM
+            , TEMPER
+            , HUMIDITY
+            , SOIL_HUMIDITY
+            , ILLUMINATION
+            , CREATE_DATE
+        FROM GROWING_ENVIRONMENT
+        ORDER BY TEMPER_NUM DESC
+    </select>
 </mapper>
 
 

@@ -36,6 +36,10 @@ public Map<String, Long> incrementVisitor(String ipAddress) {
   // setIfAbsent: 키가 없으면 저장하고 true 반환, 이미 있으면 false 반환
   // 24시간 후 자동 삭제 (자정이 지나면 다시 카운트 가능)
 
+  System.out.println("접속 ip : " + ipAddress);
+  System.out.println("중복 여부 : " + isNewVisitor);
+
+
   if (Boolean.TRUE.equals(isNewVisitor)) {
     // 새로운 방문자인 경우에만 카운트 증가
 

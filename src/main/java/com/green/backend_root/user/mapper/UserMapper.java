@@ -20,5 +20,8 @@ public interface UserMapper {
   public List<UserDTO> getUserList();
 
   // 회원 삭제
-  void deleteUser(String userId);
+  public void deleteUser(String userId);
+
+  //회원명으로 검색
+  public List<UserDTO> searchUserByName(String userName);
 }

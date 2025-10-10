@@ -36,4 +36,8 @@ public class UserService {
   public void deleteUser(String userId) {
     userMapper.deleteUser(userId);
   }
+
+  //회원명으로 검색
+  public List<UserDTO> searchUserByName(String userName)
+  {return userMapper.searchUserByName(userName);}
 }

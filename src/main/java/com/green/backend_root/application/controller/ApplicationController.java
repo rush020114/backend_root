@@ -71,6 +71,12 @@ public class ApplicationController {
     }
   }
 
+  // 회원명으로 검색
+  @GetMapping("/appList/{userName}")
+  public List<ApplicationDTO> searchByName(@PathVariable("userName") String userName) {
+    return applicationService.searchByName(userName);
+  }
+
   // 총 이용일 조회 api
   @GetMapping("/total-day/{userId}")
   public ResponseEntity<?> getTotalDays(@PathVariable("userId") String userId){

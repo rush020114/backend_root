@@ -77,7 +77,7 @@ public class UserController {
   }
 
   //회원 삭제 API
-  @DeleteMapping("/check/{userId}")
+  @DeleteMapping("/delete/{userId}")
   public ResponseEntity<?> deleteUser(@PathVariable("userId") String userId) {
     try {
       userService.deleteUser(userId);
@@ -88,4 +88,9 @@ public class UserController {
               .body("삭제 중 오류 발생");
     }
   }
+
+  //회원명으로 검색
+  @GetMapping("/userList/{userName}")
+  public List<UserDTO> searchUserByName(@PathVariable("userName") String userName)
+  {return userService.searchUserByName(userName);}
 }

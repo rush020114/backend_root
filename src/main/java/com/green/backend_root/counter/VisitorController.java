@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/visitor")
+@RequestMapping("/visitor")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:3000", "http://abc.com"})  // React 앱의 주소
 public class VisitorController {
 
   private final VisitorService visitorService;
@@ -28,6 +27,7 @@ public class VisitorController {
   public Map<String, Long> countVisitor(HttpServletRequest request) {
     // 클라이언트 IP 주소 추출
     String ipAddress = getClientIpAddress(request);
+    System.out.println(ipAddress);
 
     // 방문자 카운트 증가 및 결과 반환
     return visitorService.incrementVisitor(ipAddress);

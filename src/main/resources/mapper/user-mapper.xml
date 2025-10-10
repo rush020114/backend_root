@@ -74,4 +74,24 @@
         DELETE FROM USERS
         WHERE USER_ID = #{userId}
     </delete>
+
+    <!-- 회원명으로 검색 -->
+    <select id="searchUserByName" resultMap="users">
+        SELECT U.USER_ID
+        , U.USER_NAME
+        , U.USER_TEL
+        , U.USER_EMAIL
+        , U.USER_ROLE
+        , U.CREATE_DATE
+        , CASE
+        WHEN A.APPL_NUM IS NOT NULL THEN '이용 중'
+        ELSE '-'
+        END AS SERVICE_USE
+        FROM USERS U
+        LEFT JOIN APPLICATION A
+        ON U.USER_ID = A.USER_ID
+        WHERE U.USER_NAME LIKE CONCAT('%', #{userName}, '%')
+        ORDER BY U.CREATE_DATE DESC
+    </select>
+
 </mapper>

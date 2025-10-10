@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 // org.springframework.boot' version 3.4.9 : 버젼이 3이상의 경우 jakarta.servlet 을 사용
 // import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 import java.util.Map;
 
 @RestController
@@ -59,6 +60,16 @@ public class VisitorController {
     // X-Forwarded-For 헤더 확인 (프록시를 거친 경우)
     String ip = request.getHeader("X-Forwarded-For");
 
+    Enumeration<String> aa = request.getHeaderNames();
+
+    while(aa.hasMoreElements()){
+      System.out.println(aa.nextElement());
+    }
+
+
+
+
+
     if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
       // X-Real-IP 헤더 확인 (Nginx 등에서 사용)
       ip = request.getHeader("X-Real-IP");
@@ -78,6 +89,8 @@ public class VisitorController {
       // 직접 연결된 경우의 IP 주소
       ip = request.getRemoteAddr();
     }
+
+    System.out.println("!!!!" + ip);
 
     // X-Forwarded-For에 여러 IP가 있는 경우 첫 번째 IP 사용
     if (ip != null && ip.contains(",")) {

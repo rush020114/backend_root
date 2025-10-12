@@ -19,6 +19,8 @@ public class QuestionDTO {
   private String userId;
   private LocalDateTime qstDate;
   private String qstStatus;
+  private String qstType;
+  private String alertSensors;
   private List<QuestionImgDTO> questionImgDTOList;
   private String userRole;
   // 문의 상세 조회 시 이미지 등록 여부를 판단

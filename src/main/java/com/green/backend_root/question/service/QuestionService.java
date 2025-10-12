@@ -22,7 +22,13 @@ public class QuestionService {
     int nextQstId = questionMapper.getQstId();
 
     // 문의 등록
+    System.out.println("변경 전" + questionDTO);
     questionDTO.setQstId(nextQstId);
+    System.out.println("조건" + questionDTO);
+    if(questionDTO.getQstType().equals("일반문의")){
+      questionDTO.setAlertSensors(null);
+    }
+    System.out.println("변경 후" + questionDTO);
     questionMapper.regQst(questionDTO);
 
     // 문의 이미지 등록

@@ -5,12 +5,14 @@
 <!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
 <mapper namespace="com.green.backend_root.question.mapper.QuestionMapper">
 	<resultMap id="question" type="com.green.backend_root.question.dto.QuestionDTO">
-        <id     column="QST_ID"      property="qstId" />
-        <result column="QST_TITLE"   property="qstTitle" />
-        <result column="QST_CONTENT" property="qstContent" />
-        <result column="USER_ID"     property="userId" />
-        <result column="QST_DATE"    property="qstDate" />
-        <result column="QST_STATUS"  property="qstStatus" />
+        <id     column="QST_ID"        property="qstId" />
+        <result column="QST_TITLE"     property="qstTitle" />
+        <result column="QST_CONTENT"   property="qstContent" />
+        <result column="USER_ID"       property="userId" />
+        <result column="QST_DATE"      property="qstDate" />
+        <result column="QST_STATUS"    property="qstStatus" />
+        <result column="QST_TYPE"      property="qstType" />
+        <result column="ALERT_SENSORS" property="alertSensors" />
         <association property="userDTO" resultMap="com.green.backend_root.user.mapper.UserMapper.users" />
         <collection property="questionImgDTOList" resultMap="questionImg" />
     </resultMap>
@@ -29,11 +31,15 @@
             , QST_TITLE
             , QST_CONTENT
             , USER_ID
+            , QST_TYPE
+            , ALERT_SENSORS
         ) VALUES (
             #{qstId}
             , #{qstTitle}
             , #{qstContent}
             , #{userId}
+            , #{qstType}
+            , #{alertSensors}
         )
     </insert>
 
@@ -74,6 +80,8 @@
             , Q.USER_ID
             , QST_DATE
             , QST_STATUS
+            , QST_TYPE
+            , ALERT_SENSORS
         <if test="imgCnt != 0">
             , IMG_NUM
             , ORIGIN_IMG_NAME
@@ -99,6 +107,7 @@
             , USER_ID
             , QST_DATE
             , QST_STATUS
+            , QST_TYPE
             , IFNULL(IMG_NUM, 0) IMG_NUM
         FROM QUESTION Q
         LEFT JOIN QUESTION_IMG I
@@ -115,6 +124,9 @@
     </if>
     <if test='qstStatus != null and !qstStatus.equals("")'>
         AND QST_STATUS = #{qstStatus}
+    </if>
+    <if test='qstType != null and !qstType.equals("")'>
+        AND QST_TYPE = #{qstType}
     </if>
     <if test='qstTitle != null and !qstTitle.equals("")'>
         AND QST_TITLE LIKE CONCAT('%', #{qstTitle}, '%')

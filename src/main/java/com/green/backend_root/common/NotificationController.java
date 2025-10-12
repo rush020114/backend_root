@@ -4,6 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @RequiredArgsConstructor
 public class NotificationController {
@@ -11,9 +16,15 @@ public class NotificationController {
   private final SimpMessagingTemplate messagingTemplate;
 
   // 관리자에게 알림
-  public void notifyAdmin(String message) {
-    // 관리자에게 보낼 메시지를 client로 전달하는 메서드
-    messagingTemplate.convertAndSend("/topic/admin", message);
+  public void notifyAdmin(String userId, String sensors) {
+    // WebSocket으로 보낼 데이터 구성
+    Map<String, Object> alertData = new HashMap<>();
+    alertData.put("userId", userId);                           // 문의자 ID
+    alertData.put("sensors", Arrays.asList(sensors.split(","))); // 센서 배열로 변환
+    alertData.put("timestamp", LocalDateTime.now().toString());  // 현재 시간
+
+    // "/topic/admin" 구독 중인 관리자에게 전송
+    messagingTemplate.convertAndSend("/topic/admin", alertData);
   }
 
   // 특정 사용자에게 알림

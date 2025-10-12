@@ -53,8 +53,20 @@ public class QuestionController {
       // 문의 등록
       questionService.regQst(questionImgDTOList, questionDTO);
 
-      // 관리자에게 알림
-      notificationController.notifyAdmin("새 문의가 등록되었습니다.");
+      // ⭐ 환경문의일 경우 관리자에게 WebSocket 알림 전송
+      if("환경문의".equals(questionDTO.getQstType())) {
+        notificationController.notifyAdmin(
+          questionDTO.getUserId(),           // 문의한 사용자 ID
+          questionDTO.getAlertSensors()      // 선택한 센서들 ("온도,습도,조도")
+        );
+      }
+      // 일반문의는 기존처럼 텍스트 알림만 (선택사항)
+      else {
+        notificationController.notifyAdmin(
+          questionDTO.getUserId(),
+          "일반"  // 일반문의는 센서 정보 없음
+        );
+      }
       return ResponseEntity
               .status(HttpStatus.CREATED)
               .body("등록완료");

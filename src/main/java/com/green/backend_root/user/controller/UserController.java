@@ -120,4 +120,17 @@ public class UserController {
     }
   }
 
+  // 마이그레이션용 (일회성) 기존 비밀번호 암호화 후 삭제 예정
+//  @PostMapping("/migrate-passwords")
+//  public ResponseEntity<String> migratePasswords() {
+//    try {
+//      userService.migratePasswords();
+//      return ResponseEntity
+//              .ok("비밀번호 마이그레이션 완료");
+//    } catch (Exception e) {
+//      return ResponseEntity
+//              .status(500)
+//              .body("마이그레이션 실패: " + e.getMessage());
+//    }
+//  }
 }

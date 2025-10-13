@@ -71,7 +71,11 @@ public class EmailService {
     SimpleMailMessage message = new SimpleMailMessage();
     message.setTo(email);                                                 // 받는 사람
     message.setSubject("[비밀번호 찾기] 임시 비밀번호 발급");                           // 제목
-    message.setText("임시 비밀번호 : " + tempPw + "\n로그인 후 비밀번호를 변경해주세요.");     // 내용
+    message.setText(
+      "임시 비밀번호 : " + tempPw + "\n\n" +
+      "로그인 후 비밀번호를 변경해주세요.\n\n" +
+      "※ 임시 비밀번호는 타인에게 노출되지 않도록 주의하세요."
+      );
 
     mailSender.send(message);
   }

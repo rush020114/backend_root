@@ -25,6 +25,13 @@ repositories {
 }
 
 dependencies {
+	// Spring Security Crypto - 비밀번호 암호화 (BCrypt)
+	implementation 'org.springframework.security:spring-security-crypto'
+	// Apache Commons Lang3 - 임시 비밀번호 생성용 (RandomStringUtils)
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
+	// Spring Boot Mail - 이메일 발송 기능 (Gmail SMTP)
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 
 	///////// 방문자 카운터용 Spring Data Redis 의존성 추가 ////////////////////////////////////////
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'

@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import jakarta.mail.MessagingException;
 
 @Service
 @RequiredArgsConstructor
@@ -53,7 +54,7 @@ public class UserService {
   }
 
   // 회원 비밀번호 찾기 기능 구현 메서드
-  public boolean findUserPw(UserDTO userDTO) {
+  public boolean findUserPw(UserDTO userDTO) throws MessagingException {
     // 회원 확인
     String userId = userMapper.findUserPw(userDTO);
 

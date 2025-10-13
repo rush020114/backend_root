@@ -2,6 +2,9 @@ package com.green.backend_root.user.mapper;
 
 import com.green.backend_root.user.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface UserMapper {
@@ -25,11 +28,4 @@ public interface UserMapper {
 
   // 회원 임시 비밀번호 발급 쿼리 실행하는 메서드
   public int updateUserPw(UserDTO userDTO);
-
-  // 마이그레이션용 (일회성) 기존 비밀번호 암호화 후 삭제 예정
-//  public List<UserDTO> selectAllUsers();
-//
-//  public void updatePassword(@Param("userId") String userId,
-//                             @Param("userPw") String userPw);
-
 }

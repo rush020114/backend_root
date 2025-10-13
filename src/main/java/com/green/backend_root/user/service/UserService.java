@@ -8,6 +8,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -77,32 +79,4 @@ public class UserService {
   private String getTempPw(){
     return RandomStringUtils.randomAlphanumeric(8);
   }
-
-  // 마이그레이션용 (일회성) 기존 비밀번호 암호화 후 삭제 예정
-//  public void migratePasswords() {
-//    System.out.println("=== 비밀번호 마이그레이션 시작 ===");
-//
-//    List<UserDTO> users = userMapper.selectAllUsers();
-//    System.out.println("총 " + users.size() + "명의 사용자 발견");
-//
-//    int count = 0;
-//    for (UserDTO user : users) {
-//      // 이미 암호화된 비밀번호는 건너뛰기
-//      if (user.getUserPw().startsWith("$2a$")) {
-//        System.out.println(user.getUserId() + " - 이미 암호화됨 (건너뜀)");
-//        continue;
-//      }
-//
-//      // 평문 비밀번호 암호화
-//      String encodedPw = passwordEncoder.encode(user.getUserPw());
-//
-//      // DB 업데이트 (새로운 메서드 사용)
-//      userMapper.updatePassword(user.getUserId(), encodedPw);
-//
-//      count++;
-//      System.out.println(user.getUserId() + " - 암호화 완료");
-//    }
-//
-//    System.out.println("=== 마이그레이션 완료: " + count + "명 처리됨 ===");
-//  }
 }

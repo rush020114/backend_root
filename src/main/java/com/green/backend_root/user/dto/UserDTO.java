@@ -13,6 +13,7 @@ public class UserDTO {
   private String userEmail;             //이메일
   private String userRole;              //사용자 유형
   private LocalDateTime createDate;     //가입일자
+  private String serviceUse;            //서비스 이용 상태
 
   //배열로 전달되는 연락처 저장할 변수
   private String[] userTelArr;

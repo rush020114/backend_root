@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
@@ -23,10 +25,10 @@ public class UserController {
               .status(HttpStatus.CREATED)
               .body("회원가입이 완료되었습니다.");
     } catch (Exception e){
-        e.printStackTrace();
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("회원가입 중 오류가 발생했습니다.");
+      e.printStackTrace();
+      return ResponseEntity
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("회원가입 중 오류가 발생했습니다.");
     }
   }
 
@@ -40,10 +42,10 @@ public class UserController {
               .status(HttpStatus.OK)
               .body(result);
     } catch (Exception e){
-       e.printStackTrace();
-       return ResponseEntity
-               .status(HttpStatus.INTERNAL_SERVER_ERROR)
-               .body("아이디 중복 확인 중 오류가 발생했습니다.");
+      e.printStackTrace();
+      return ResponseEntity
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("아이디 중복 확인 중 오류가 발생했습니다.");
     }
   }
 
@@ -62,13 +64,12 @@ public class UserController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(loginUser);
-
       }
     } catch (Exception e){
-        e.printStackTrace();
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("로그인 중 오류가 발생했습니다.");
+      e.printStackTrace();
+      return ResponseEntity
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("로그인 중 오류가 발생했습니다.");
     }
   }
 
@@ -119,4 +120,29 @@ public class UserController {
               .body("비밀번호 찾기 중 오류가 발생했습니다.");
     }
   }
+
+  //회원 목록 조회 API
+  @GetMapping("/userList")
+  public List<UserDTO> getUserList() {
+    return userService.getUserList();
+  }
+
+  //회원 삭제 API
+  @DeleteMapping("/delete/{userId}")
+  public ResponseEntity<?> deleteUser(@PathVariable("userId") String userId) {
+    try {
+      userService.deleteUser(userId);
+      return ResponseEntity.ok("삭제 완료");
+    } catch (Exception e) {
+      return ResponseEntity
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("삭제 중 오류 발생");
+    }
+  }
+
+  //회원명으로 검색
+  @GetMapping("/userList/{userName}")
+  public List<UserDTO> searchUserByName(@PathVariable("userName") String userName)
+  {return userService.searchUserByName(userName);}
+
 }

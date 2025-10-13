@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.backend_root.schedule.mapper.ScheduleMapper">
+    <resultMap id="schedule" type="com.green.backend_root.schedule.dto.ScheduleDTO">
+        <id     property="schedId" column="SCHED_ID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="title" column="TITLE"/>
+        <result property="schedDate" column="SCHED_DATE"/>
+        <result property="schedContent" column="SCHED_CONTENT"/>
+        <result property="category" column="CATEGORY"/>
+        <result property="isCompleted" column="IS_COMPLETED"/>
+        <result property="createDate" column="CREATE_DATE"/>
+    </resultMap>
+
+    <!-- 일정 등록 -->
+    <insert id="regSchedule">
+        INSERT INTO SCHED(
+            USER_ID
+            , TITLE
+            , SCHED_DATE
+            , SCHED_CONTENT
+            , CATEGORY
+        ) VALUES (
+            #{userId}
+            , #{title}
+            , #{schedDate}
+            , #{schedContent}
+            , #{category}
+        )
+    </insert>
+
+    <!-- 일정 목록 조회 -->
+    <select id="getScheduleList" resultMap="schedule">
+        SELECT SCHED_ID
+            , USER_ID
+            , TITLE
+            , SCHED_DATE
+            , SCHED_CONTENT
+            , CATEGORY
+            , IS_COMPLETED
+            , CREATE_DATE
+        FROM SCHED
+        WHERE USER_ID = #{userId}
+        ORDER BY SCHED_DATE DESC
+    </select>
+
+    <!-- 일정 상세 조회 -->
+    <select id="getSchedule" resultMap="schedule">
+        SELECT SCHED_ID
+            , USER_ID
+            , TITLE
+            , SCHED_DATE
+            , SCHED_CONTENT
+            , CATEGORY
+            , IS_COMPLETED
+            , CREATE_DATE
+        FROM SCHED
+        WHERE SCHED_ID = #{schedId}
+    </select>
+
+    <!-- 일정 수정 -->
+    <update id="updateSchedule">
+        UPDATE SCHED
+        SET TITLE = #{title}
+            , SCHED_DATE = #{schedDate}
+            , SCHED_CONTENT = #{schedContent}
+            , CATEGORY = #{category}
+        WHERE SCHED_ID = #{schedId}
+    </update>
+
+    <!-- 일정 삭제 -->
+    <delete id="deleteSchedule">
+        DELETE FROM SCHED
+        WHERE SCHED_ID = #{schedId}
+    </delete>
+
+    <!-- 완료 처리 -->
+    <update id="updateCompleted">
+        UPDATE SCHED
+        SET IS_COMPLETED = #{isCompleted}
+        WHERE SCHED_ID = #{schedId}
+    </update>
+</mapper>

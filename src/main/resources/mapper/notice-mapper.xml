@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.backend_root.notice.mapper.NoticeMapper">
+	
+	<!-- Notice ResultMap -->
+	<resultMap id="notice" type="com.green.backend_root.notice.dto.NoticeDTO">
+		<id 	property="noticeId" column="NOTICE_ID"/>
+		<result property="noticeTitle" column="NOTICE_TITLE"/>
+		<result property="noticeContent" column="NOTICE_CONTENT"/>
+		<result property="noticeDate" column="NOTICE_DATE"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="isImportant" column="IS_IMPORTANT"/>
+		<collection property="noticeImgDTOList" resultMap="noticeImg"/>
+	</resultMap>
+
+	<!-- Notice 이미지 ResultMap -->
+	<resultMap id="noticeImg" type="com.green.backend_root.notice.dto.NoticeImgDTO">
+		<id 	property="imgNum" column="IMG_NUM"/>
+		<result property="originImgName" column="ORIGIN_IMG_NAME"/>
+		<result property="attachedImgName" column="ATTACHED_IMG_NAME"/>
+		<result property="noticeId" column="NOTICE_ID"/>
+	</resultMap>
+	
+	<!-- 공지 등록 시 공지 번호 조회 -->
+	<select id="getNoticeId" resultType="int">
+		SELECT IFNULL(MAX(NOTICE_ID), 0) + 1
+		FROM NOTICE
+	</select>
+	
+	<!-- 공지 등록 -->
+	<insert id="regNotice">
+		INSERT INTO NOTICE(
+            NOTICE_ID
+		    , NOTICE_TITLE
+			, NOTICE_CONTENT
+			, USER_ID
+			, IS_IMPORTANT
+		) VALUES(
+            #{noticeId}
+			, #{noticeTitle}
+			, #{noticeContent}
+			, #{userId}
+			, #{isImportant}
+		)
+	</insert>
+
+	<!-- 공지 이미지 등록 -->
+	<insert id="regNoticeImgs">
+		INSERT INTO NOTICE_IMG (
+			ORIGIN_IMG_NAME
+			, ATTACHED_IMG_NAME
+			, NOTICE_ID
+		) VALUES
+	<foreach collection="noticeImgDTOList" item="noticeImg" separator=",">
+		(
+			#{noticeImg.originImgName}
+			, #{noticeImg.attachedImgName}
+			, #{noticeImg.noticeId}
+		)
+	</foreach>
+	</insert>
+
+	<!-- 문의 상세 조회 시 이미지 등록 여부를 판단할 쿼리 -->
+	<select id="getImgCnt" resultType="int">
+		SELECT COUNT(IMG_NUM)
+		FROM NOTICE_IMG
+		WHERE NOTICE_ID = #{noticeId}
+	</select>
+	
+	<!-- 공지 목록 조회 -->
+	<select id="getNoticeList" resultMap="notice">
+		SELECT N.NOTICE_ID
+			, NOTICE_TITLE
+			, USER_ID
+			, NOTICE_DATE
+			, IS_IMPORTANT
+			, IFNULL(IMG_NUM, 0) IMG_NUM
+		FROM NOTICE N
+		LEFT JOIN NOTICE_IMG I
+		ON N.NOTICE_ID = I.NOTICE_ID
+		WHERE 1 = 1
+	<if test='noticeId != null and !noticeId.equals("")'>
+		AND N.NOTICE_ID = #{noticeId}
+	</if>
+	<if test='noticeTitle != null and !noticeTitle.equals("")'>
+		AND NOTICE_TITLE LIKE CONCAT('%', #{noticeTitle}, '%')
+	</if>
+	<if test='userId != null and !userId.equals("")'>
+		AND USER_ID LIKE CONCAT('%', #{userId}, '%')
+	</if>
+	<if test='noticeDate != null and !noticeDate.equals("")'>
+		AND TO_CHAR(NOTICE_DATE, 'YYYY-MM-DD') = #{noticeDate}
+	</if>
+		ORDER BY IS_IMPORTANT DESC, NOTICE_DATE DESC
+	</select>
+	
+	<!-- 공지 상세 조회 -->
+	<select id="getNoticeDetail" resultMap="notice">
+		SELECT 
+			N.NOTICE_ID
+			, NOTICE_TITLE
+			, NOTICE_CONTENT
+			, NOTICE_DATE
+			, N.USER_ID
+			, IS_IMPORTANT
+		<if test="imgCnt != 0">
+			, IMG_NUM
+			, ORIGIN_IMG_NAME
+			, ATTACHED_IMG_NAME
+		</if>
+		FROM NOTICE N
+		<if test="imgCnt != 0">
+			INNER JOIN NOTICE_IMG I
+			ON N.NOTICE_ID = I.NOTICE_ID
+		</if>
+		WHERE N.NOTICE_ID = #{noticeId}
+	</select>
+	
+	<!-- 공지 수정 -->
+	<update id="updateNotice">
+		UPDATE NOTICE
+		SET NOTICE_TITLE = #{noticeTitle}
+			, NOTICE_CONTENT = #{noticeContent}
+			, IS_IMPORTANT = #{isImportant}
+		WHERE NOTICE_ID = #{noticeId}
+	</update>
+
+	<!-- 공지 이미지 삭제 -->
+	<delete id="deleteNoticeImgs">
+		DELETE FROM NOTICE_IMG
+		WHERE IMG_NUM IN
+	<foreach collection="imgNumArr" item="imgNum" open="(" close=")" separator=",">
+		#{imgNum}
+	</foreach>
+	</delete>
+
+    <!-- 공지 이미지 조회(공지 수정 시 이미지 삭제를 위한 것) -->
+    <select id="getNoticeImgListForUpdate" resultType="String">
+		SELECT ATTACHED_IMG_NAME
+		FROM NOTICE_IMG
+		WHERE IMG_NUM IN
+    <foreach collection="imgNumArr" item="imgNum" open="(" close=")" separator=",">
+        #{imgNum}
+    </foreach>
+    </select>
+
+	<!-- 공지 삭제 -->
+	<delete id="delNotice">
+		DELETE FROM NOTICE
+		WHERE NOTICE_ID = #{noticeId}
+	</delete>
+
+	<!-- 공지 이미지 조회 -->
+	<select id="getNoticeImgList" resultType="String">
+		SELECT ATTACHED_IMG_NAME
+		FROM NOTICE_IMG
+		WHERE NOTICE_ID = #{noticeId}
+	</select>
+	
+	<!-- 공지 목록 삭제 -->
+	<delete id="delNoticeList">
+		DELETE FROM NOTICE
+		WHERE NOTICE_ID IN
+	<foreach collection="noticeIdArr" item="noticeId" open="(" close=")" separator=",">
+		#{noticeId}
+	</foreach>
+	</delete>
+
+	<!-- 공지 이미지 조회(공지 목록 삭제를 위한 것) -->
+	<select id="getNoticeImgListForDelList" resultType="String">
+		SELECT ATTACHED_IMG_NAME
+		FROM NOTICE_IMG
+		WHERE NOTICE_ID IN
+	<foreach collection="noticeIdArr" item="noticeId" open="(" close=")" separator=",">
+		#{noticeId}
+	</foreach>
+	</select>
+
+</mapper>

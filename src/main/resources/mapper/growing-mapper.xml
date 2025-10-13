@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.backend_root.growing.mapper.GrowingMapper">
+	<resultMap id="growing" type="com.green.backend_root.growing.dto.GrowingDTO">
+        <id     column="TEMPER_NUM" property="temperNum"/>
+        <result column="TEMPER" property="temper"/>
+        <result column="HUMIDITY" property="humidity"/>
+        <result column="SOIL_HUMIDITY" property="soilHumidity"/>
+        <result column="ILLUMINATION" property="illumination"/>
+        <result column="CREATE_DATE" property="createDate"/>
+    </resultMap>
+
+    <!-- 센서 데이터 상세 조회 -->
+    <select id="getGrowingList" resultMap="growing">
+        SELECT TEMPER_NUM
+            , TEMPER
+            , HUMIDITY
+            , SOIL_HUMIDITY
+            , ILLUMINATION
+            , CREATE_DATE
+        FROM GROWING_ENVIRONMENT
+    </select>
+
+    <!-- 7일 간 센서 데이터 조회 -->
+    <select id="getWeeklyGrowingList" resultMap="growing">
+        SELECT TEMPER_NUM
+        , TEMPER
+        , HUMIDITY
+        , SOIL_HUMIDITY
+        , ILLUMINATION
+        , CREATE_DATE
+        FROM GROWING_ENVIRONMENT
+        WHERE CREATE_DATE >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+        AND CREATE_DATE <![CDATA[<]]> CURDATE()
+        ORDER BY CREATE_DATE ASC
+    </select>
+
+    <!-- 센서 데이터 상세 거꾸로 조회 -->
+    <select id="getGrowingListRev" resultMap="growing">
+        SELECT TEMPER_NUM
+            , TEMPER
+            , HUMIDITY
+            , SOIL_HUMIDITY
+            , ILLUMINATION
+            , CREATE_DATE
+        FROM GROWING_ENVIRONMENT
+        ORDER BY TEMPER_NUM DESC
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

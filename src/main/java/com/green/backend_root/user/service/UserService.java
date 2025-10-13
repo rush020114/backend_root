@@ -79,4 +79,18 @@ public class UserService {
   private String getTempPw(){
     return RandomStringUtils.randomAlphanumeric(8);
   }
+  
+  //회원 목록 조회용 메서드
+  public List<UserDTO> getUserList(){
+    return userMapper.getUserList();
+  }
+
+  // 회원 삭제
+  public void deleteUser(String userId) {
+    userMapper.deleteUser(userId);
+  }
+
+  //회원명으로 검색
+  public List<UserDTO> searchUserByName(String userName)
+  {return userMapper.searchUserByName(userName);}
 }

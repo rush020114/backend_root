@@ -145,4 +145,17 @@ public class UserController {
   public List<UserDTO> searchUserByName(@PathVariable("userName") String userName)
   {return userService.searchUserByName(userName);}
 
+
+  // 최신 7일기준 고객(가입자)수 카운팅 API
+  @GetMapping("/weekly")
+  public int countWeeklySign(){
+    return userService.countWeeklySign();
+  }
+
+  // 총 고객(가입자)수 카운팅 API
+  @GetMapping("/total")
+  public int countTotalSign(){
+    return userService.countTotalSign();
+  }
+
 }

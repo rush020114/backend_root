@@ -131,4 +131,21 @@
         ORDER BY U.CREATE_DATE DESC
     </select>
 
+
+    <!-- 최신 7일기준 고객(가입자)수 카운팅 쿼리 -->
+    <select id="countWeeklySign" resultType="int">
+        SELECT COUNT(*) AS RECENT_SIGNUP_COUNT
+        FROM USERS
+        WHERE USER_ROLE = 'USER'
+        AND CREATE_DATE >= NOW() - INTERVAL 7 DAY
+    </select>
+
+    <!-- 총 고객(가입자)수 카운팅 쿼리  -->
+    <select id="countTotalSign" resultType="int">
+        SELECT COUNT(*) AS TOTAL_USERS
+        FROM USERS
+        WHERE USER_ROLE = 'USER'
+    </select>
+
+
 </mapper>

@@ -39,5 +39,14 @@ public interface UserMapper {
 
   //회원명으로 검색
   public List<UserDTO> searchUserByName(String userName);
+
+
+  // 최신 7일기준 고객(가입자)수 카운팅
+  public int countWeeklySign();
+
+  // 총 고객(가입자)수 카운팅
+  public int countTotalSign();
+
+
 }
 

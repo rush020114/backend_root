@@ -94,4 +94,16 @@ public class UserService {
   //회원명으로 검색
   public List<UserDTO> searchUserByName(String userName)
   {return userMapper.searchUserByName(userName);}
+
+
+  // 최신 7일기준 고객(가입자)수 카운팅 메서드
+  public int countWeeklySign(){
+    return userMapper.countWeeklySign();
+  }
+
+  // 총 고객(가입자)수 카운팅 메서드
+  public int countTotalSign(){
+    return userMapper.countTotalSign();
+  }
+
 }

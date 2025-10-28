@@ -147,5 +147,15 @@
         WHERE USER_ROLE = 'USER'
     </select>
 
+    <!-- 회원 정보 -->
+    <select id="getUserInfo" resultMap="users">
+        SELECT
+        USER_ID
+        , USER_EMAIL
+        , USER_NAME
+        , USER_TEL
+        FROM USERS
+        WHERE USER_ID = #{userId}
+    </select>
 
 </mapper>

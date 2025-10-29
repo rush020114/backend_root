@@ -106,4 +106,9 @@ public class UserService {
     return userMapper.countTotalSign();
   }
 
+  // 회원 정보
+  public UserDTO getUserInfo(String userId){
+    return userMapper.getUserInfo(userId);
+  }
+
 }

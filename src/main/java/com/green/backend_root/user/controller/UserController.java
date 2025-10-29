@@ -158,4 +158,10 @@ public class UserController {
     return userService.countTotalSign();
   }
 
+  // 회원 정보
+  @GetMapping("/userInfo/{userId}")
+  public UserDTO getUserInfo(@PathVariable("userId") String userId){
+    return userService.getUserInfo(userId);
+  }
+
 }

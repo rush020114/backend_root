@@ -47,6 +47,8 @@ public interface UserMapper {
   // 총 고객(가입자)수 카운팅
   public int countTotalSign();
 
+  // 회원 정보
+  UserDTO getUserInfo(String userId);
 
 }
 

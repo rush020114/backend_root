@@ -44,11 +44,13 @@
     <select id="getServiceInfo" resultMap="application">
         SELECT APPL_NUM
             , USER_NAME
+            , USER_TEL
             , FARM_NAME
             , APPL_ROLE
             , USER_EMAIL
             , BUSINESS_TEL
             , APPL_ADDR
+            , ADDR_DETAIL
             , REG_DATE
             , APPR_DATE
             , A.USER_ID

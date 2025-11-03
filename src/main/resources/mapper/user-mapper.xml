@@ -158,4 +158,5 @@
         WHERE USER_ID = #{userId}
     </select>
 
+    <!-- 회원 정보 수정 -->
 </mapper>

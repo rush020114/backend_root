@@ -17,4 +17,5 @@ public class UserDTO {
 
   //배열로 전달되는 연락처 저장할 변수
   private String[] userTelArr;
+  private UserImgDTO userImgDTO;
 }

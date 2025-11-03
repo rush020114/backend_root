@@ -24,4 +24,7 @@ public interface ApplicationMapper {
 
   // 총 이용일
   int getTotalDays(String userId);
+
+  // 농장 정보 수정
+  void updateFarmInfo(ApplicationDTO applicationDTO);
 }

@@ -111,4 +111,8 @@ public class UserService {
     return userMapper.getUserInfo(userId);
   }
 
+  // 회원 정보 수정
+  public void updateUserInfo(UserDTO userDTO){
+    userMapper.updateUserInfo(userDTO);
+  }
 }

@@ -50,5 +50,7 @@ public interface UserMapper {
   // 회원 정보
   UserDTO getUserInfo(String userId);
 
+  // 농장 정보 수정
+  void updateUserInfo(UserDTO userDTO);
 }
 

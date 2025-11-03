@@ -111,4 +111,14 @@
         WHERE USER_ID = #{userId};
     </select>
 
+    <!-- 농장 정보 수정 -->
+    <update id="updateFarmInfo">
+        UPDATE APPLICATION
+        SET FARM_NAME = #{farmName}
+            , APPL_ROLE = #{applRole}
+            , BUSINESS_TEL = #{businessTel}
+            , APPL_ADDR = #{applAddr}
+            , ADDR_DETAIL = #{addrDetail}
+        WHERE USER_ID = #{userId}
+    </update>
 </mapper>

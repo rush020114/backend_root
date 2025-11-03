@@ -164,4 +164,19 @@ public class UserController {
     return userService.getUserInfo(userId);
   }
 
+  // 회원 정보 수정
+  @PutMapping()
+  public ResponseEntity<?> updateUserInfo(@RequestBody UserDTO userDTO){
+    try {
+      userService.updateUserInfo(userDTO);
+      return ResponseEntity
+              .status(HttpStatus.OK)
+              .body("수정 완료");
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseEntity
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("수정 중 서버 오류 발생");
+    }
+  }
 }

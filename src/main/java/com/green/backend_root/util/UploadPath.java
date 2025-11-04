@@ -8,7 +8,10 @@ public enum UploadPath {
   QUESTION("question"),
 
   // Notice 이미지 업로드 경로
-  NOTICE("notice");
+  NOTICE("notice"),
+
+  // User 이미지 업로드 경로
+  USER("user");
 
   // 실제 폴더명을 저장하는 변수
   private final String path;

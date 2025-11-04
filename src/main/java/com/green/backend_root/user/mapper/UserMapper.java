@@ -1,6 +1,7 @@
 package com.green.backend_root.user.mapper;
 
 import com.green.backend_root.user.dto.UserDTO;
+import com.green.backend_root.user.dto.UserImgDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -50,7 +51,16 @@ public interface UserMapper {
   // 회원 정보
   UserDTO getUserInfo(String userId);
 
-  // 농장 정보 수정
+  // 회원 정보 수정
   void updateUserInfo(UserDTO userDTO);
+
+  // 회원 이미지 등록
+  void regUserImg(UserImgDTO userImgDTO);
+
+  // 회원 이미지 수정
+  void updateUserImg(UserImgDTO userImgDTO);
+
+  // 이미지 등록 여부 판단
+  UserDTO getRegedImg(String userId);
 }
 

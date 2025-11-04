@@ -43,20 +43,22 @@
     <!-- 서비스 기본 정보 조회 -->
     <select id="getServiceInfo" resultMap="application">
         SELECT APPL_NUM
-            , USER_NAME
-            , USER_TEL
-            , FARM_NAME
-            , APPL_ROLE
-            , USER_EMAIL
-            , BUSINESS_TEL
-            , APPL_ADDR
-            , ADDR_DETAIL
-            , REG_DATE
-            , APPR_DATE
-            , A.USER_ID
+        , USER_NAME
+        , USER_TEL
+        , FARM_NAME
+        , APPL_ROLE
+        , USER_EMAIL
+        , BUSINESS_TEL
+        , APPL_ADDR
+        , ADDR_DETAIL
+        , REG_DATE
+        , APPR_DATE
+        , A.USER_ID
+        , I.ORIGIN_IMG_NAME      <!-- ← 추가 -->
+        , I.ATTACHED_IMG_NAME    <!-- ← 추가 -->
         FROM APPLICATION A
-        INNER JOIN USERS U
-        ON A.USER_ID = U.USER_ID
+        INNER JOIN USERS U ON A.USER_ID = U.USER_ID
+        LEFT JOIN user_img I ON U.USER_ID = I.USER_ID  <!-- ← LEFT JOIN 추가 -->
         WHERE A.USER_ID = #{userId}
     </select>
 

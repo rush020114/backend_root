@@ -13,6 +13,13 @@
         <result column="USER_ROLE"          property="userRole" />
         <result column="CREATE_DATE"        property="createDate" />
         <result column="SERVICE_USE"        property="serviceUse" />
+        <association property="userImgDTO" resultMap="userImg" />
+    </resultMap>
+
+    <resultMap id="userImg" type="com.green.backend_root.user.dto.UserImgDTO">
+        <id column="USER_ID"            property="userId" />
+        <result column="ORIGIN_IMG_NAME"    property="originImgName" />
+        <result column="ATTACHED_IMG_NAME"  property="attachedImgName" />
     </resultMap>
 
     <!--회원 정보 등록-->
@@ -158,4 +165,42 @@
         WHERE USER_ID = #{userId}
     </select>
 
+    <!-- 회원 정보 수정 -->
+    <update id="updateUserInfo">
+        UPDATE USERS
+        SET USER_NAME = #{userName}
+            , USER_TEL = #{userTel}
+            , USER_EMAIL = #{userEmail}
+        WHERE USER_ID = #{userId}
+    </update>
+
+    <!-- 회원 이미지 등록 -->
+    <insert id="regUserImg">
+        INSERT INTO USER_IMG (
+            USER_ID
+            , ORIGIN_IMG_NAME
+            , ATTACHED_IMG_NAME
+        ) VALUES (
+            #{userId}
+            , #{originImgName}
+            , #{attachedImgName}
+        )
+    </insert>
+
+    <!-- 이미지 수정 -->
+    <update id="updateUserImg">
+        UPDATE USER_IMG
+        SET ORIGIN_IMG_NAME = #{originImgName}
+            , ATTACHED_IMG_NAME = #{attachedImgName}
+        WHERE USER_ID = #{userId}
+    </update>
+    
+    <!-- 이미지 등록 여부 판단 -->
+    <select id="getRegedImg" resultMap="users">
+        SELECT u.USER_ID
+            , i.ATTACHED_IMG_NAME
+        FROM USERS u
+        LEFT OUTER JOIN user_img i ON u.USER_ID = i.USER_ID
+        WHERE u.USER_ID = #{userId}
+    </select>
 </mapper>

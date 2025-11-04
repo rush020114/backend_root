@@ -43,18 +43,22 @@
     <!-- 서비스 기본 정보 조회 -->
     <select id="getServiceInfo" resultMap="application">
         SELECT APPL_NUM
-            , USER_NAME
-            , FARM_NAME
-            , APPL_ROLE
-            , USER_EMAIL
-            , BUSINESS_TEL
-            , APPL_ADDR
-            , REG_DATE
-            , APPR_DATE
-            , A.USER_ID
+        , USER_NAME
+        , USER_TEL
+        , FARM_NAME
+        , APPL_ROLE
+        , USER_EMAIL
+        , BUSINESS_TEL
+        , APPL_ADDR
+        , ADDR_DETAIL
+        , REG_DATE
+        , APPR_DATE
+        , A.USER_ID
+        , I.ORIGIN_IMG_NAME      <!-- ← 추가 -->
+        , I.ATTACHED_IMG_NAME    <!-- ← 추가 -->
         FROM APPLICATION A
-        INNER JOIN USERS U
-        ON A.USER_ID = U.USER_ID
+        INNER JOIN USERS U ON A.USER_ID = U.USER_ID
+        LEFT JOIN user_img I ON U.USER_ID = I.USER_ID  <!-- ← LEFT JOIN 추가 -->
         WHERE A.USER_ID = #{userId}
     </select>
 
@@ -109,4 +113,14 @@
         WHERE USER_ID = #{userId};
     </select>
 
+    <!-- 농장 정보 수정 -->
+    <update id="updateFarmInfo">
+        UPDATE APPLICATION
+        SET FARM_NAME = #{farmName}
+            , APPL_ROLE = #{applRole}
+            , BUSINESS_TEL = #{businessTel}
+            , APPL_ADDR = #{applAddr}
+            , ADDR_DETAIL = #{addrDetail}
+        WHERE USER_ID = #{userId}
+    </update>
 </mapper>

@@ -41,4 +41,9 @@ public class ApplicationService {
   public int getTotalDays(String userId){
     return applicationMapper.getTotalDays(userId);
   }
+
+  // 농장 정보 수정
+  public void updateFarmInfo(ApplicationDTO applicationDTO){
+    applicationMapper.updateFarmInfo(applicationDTO);
+  }
 }

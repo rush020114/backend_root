@@ -90,4 +90,20 @@ public class ApplicationController {
               .body("이용일 조회 중 서버 오류 발생");
     }
   }
+
+  // 농장 정보 수정 api
+  @PutMapping("")
+  public ResponseEntity<?> updateFarmInfo(@RequestBody ApplicationDTO applicationDTO){
+    try {
+      applicationService.updateFarmInfo(applicationDTO);
+      return ResponseEntity
+              .status(HttpStatus.OK)
+              .body("수정 완료");
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseEntity
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("수정 중 서버 오류 발생");
+    }
+  }
 }

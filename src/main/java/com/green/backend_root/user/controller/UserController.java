@@ -1,11 +1,13 @@
 package com.green.backend_root.user.controller;
 
 import com.green.backend_root.user.dto.UserDTO;
+import com.green.backend_root.user.dto.UserImgDTO;
 import com.green.backend_root.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -164,4 +166,42 @@ public class UserController {
     return userService.getUserInfo(userId);
   }
 
+  // 회원 정보 수정
+  @PutMapping("")
+  public ResponseEntity<?> updateUserInfo(@RequestBody UserDTO userDTO){
+    try {
+      userService.updateUserInfo(userDTO);
+      return ResponseEntity
+              .status(HttpStatus.OK)
+              .body("수정 완료");
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseEntity
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("수정 중 서버 오류 발생");
+    }
+  }
+
+  // 회원 이미지 등록 api
+  @PostMapping("upload-img")
+  public ResponseEntity<?> regUserImg(@RequestParam MultipartFile userImg, UserImgDTO userImgDTO){
+    try {
+
+      boolean isUpdate = userService.regUserImg(userImg, userImgDTO);
+
+      if(isUpdate) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("이미지 수정 성공");
+      } else {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body("이미지 등록 성공");
+      }
+    } catch (Exception e) {
+      return ResponseEntity
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("이미지 처리 과정 중 서버 오류 발생");
+    }
+  }
 }
